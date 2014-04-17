@@ -1,0 +1,48 @@
+{% extends "FulgurioUserBundle::layout.html.twig" %}
+
+{% block content %}
+		<div>
+			<h1>{% trans %}profile.profile{% endtrans %}</h1>
+			<form action="{{ path('fos_user_profile_edit') }}" method="post" class="form-horizontal" role="form">
+{% if form.email.vars.errors|length
+	 or form.username.vars.errors|length
+	 or form.current_password.vars.errors|length
+	 or form.vars.errors|length %}
+				<div class="alert alert-danger">
+					<p>{% trans %}form.error{% endtrans %} :</p>
+					<ul>
+{% for error in form.email.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% for error in form.username.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% for error in form.current_password.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% for error in form.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+					</ul>
+				</div>
+{% endif %}
+				<div class="form-group">
+					<label for="email" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.email{% endtrans %}</label>
+					<div class="col-md-9">
+						<input type="email" class="form-control" id="email" name="{{form.email.vars.full_name}}" value="{{form.email.vars.value}}" autocomplete="off" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="username" class="col-md-3 control-label">{% trans %}form.username{% endtrans %}</label>
+					<div class="col-md-9">
+						<input type="text" class="form-control" id="username" name="{{form.username.vars.full_name}}" value="{{form.username.vars.value}}" autocomplete="off" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.current_password{% endtrans %}</label>
+					<div class="col-md-9">
+						<input type="password" class="form-control" id="password" name="{{form.current_password.vars.full_name}}" autocomplete="off" required>
+					</div>
+				</div>
+				<div class="form-group submit">
+					<div class="col-md-offset-3 col-md-9">
+						<input type="hidden" name="{{form._token.vars.full_name}}" value="{{form._token.vars.value}}" />
+						<button type="submit" class="btn btn-primary"><i class="icon-hand-right"></i> &nbsp;{% trans from 'FOSUserBundle' %}profile.edit.submit{% endtrans %}</button>
+						&nbsp;<a href="{{ path('fos_user_profile_show') }}" class="btn btn-default">{% trans %}back{% endtrans %}</a>
+					</div>
+				</div>
+			</form>
+		</div>
+{% endblock content %}

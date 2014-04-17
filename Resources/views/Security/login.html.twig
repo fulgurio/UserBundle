@@ -1,0 +1,79 @@
+{# Form to reset password, from email link #}
+
+{% extends "FulgurioUserBundle::layout_like_popup.html.twig" %}
+
+{% block title %}{% trans %}form.signin.sign.in{% endtrans %}{% endblock %}
+
+{% block styles %}
+.container .panel-heading a {
+	float: right;
+	font-size: 85%;
+	position: relative;
+	top: -10px;
+}
+.container .panel-body {
+	padding-top: 30px;
+}
+.container .inputmarge {
+	margin-bottom: 25px;
+}
+.container .form-group.othersignin {
+	margin-top: 10px;
+}
+.container .form-group.signup div.control div {
+	border-top: 1px solid #888;
+	padding-top: 15px;
+	font-size: 85%;
+}
+{% endblock %}
+
+{% block content %}
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div class="panel-title">{% trans %}form.signin.sign.in{% endtrans %}</div>
+						<div>
+							<a href="{{ path('fos_user_resetting_request') }}">{% trans %}form.signin.forgot.password{% endtrans %}</a>
+						</div>
+					</div>
+					<div class="panel-body">
+{% if error %}
+						<div class="alert alert-danger">
+							<p>{% trans %}form.error{% endtrans %} :</p>
+							<ul>
+								<li>{{ error|trans({}, 'FOSUserBundle') }}</li>
+							</ul>
+						</div>
+{% endif %}
+						<form action="{{ path('fos_user_security_check') }}" method="post" class="form-horizontal" role="form">
+							<div class="input-group inputmarge">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input type="text" class="form-control" name="login[email]" value="{{ last_username }}" placeholder="{% trans %}form.email.or.username{% endtrans %}" required autocomplete="off" autofocus>
+							</div>
+							<div class="input-group inputmarge">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								<input type="password" class="form-control" name="login[password]" placeholder="{% trans from 'FOSUserBundle' %}form.password{% endtrans %}" required autocomplete="off">
+							</div>
+							<div class="input-group">
+								<div class="checkbox">
+									<label><input type="checkbox" name="login[remember_me]" value="on">{% trans from 'FOSUserBundle' %}security.login.remember_me{% endtrans %}</label>
+								</div>
+							</div>
+							<div class="form-group othersignin">
+								<div class="col-sm-12 controls">
+									<input type="hidden" name="login[csrf_token]" value="{{ csrf_token }}">
+									<button class="btn btn-success">{% trans from 'FOSUserBundle' %}security.login.submit{% endtrans %}</button>
+{#								<a href="#" class="btn btn-primary">{% trans %}form.signin.facebook{% endtrans %}</a>#}
+								</div>
+							</div>
+							<div class="form-group signup">
+								<div class="col-md-12 control">
+									<div>
+										{% trans %}form.signin.have.no.account{% endtrans %} <a href="{{ path('fos_user_registration_register') }}">{% trans %}form.signin.sign.up.here{% endtrans %}</a>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+{% endblock %}
+

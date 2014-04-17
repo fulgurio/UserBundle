@@ -1,0 +1,87 @@
+{# Template of registration form #}
+{% extends "FulgurioUserBundle::layout_like_popup.html.twig" %}
+
+{% block title %}{% trans %}form.register.sign.up{% endtrans %}{% endblock %}
+
+{% block styles %}
+.container .panel-heading a {
+	float:right;
+	font-size: 85%;
+	position: relative;
+	top:-10px;
+}
+.container .form-group.submit span {
+	margin-left: 8px;
+}
+{#
+.container .form-group.othersignin {
+	border-top: 1px solid #999;
+	padding-top: 20px;
+}
+#}
+{% endblock %}
+
+{% block content %}
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div class="panel-title">{% trans %}form.register.sign.up{% endtrans %}</div>
+						<div><a href="{{ path('fos_user_security_login') }}">{% trans %}form.register.sign.in{% endtrans %}</a></div>
+					</div>
+					<div class="panel-body">
+						<form action="{{ path('fos_user_registration_register') }}" method="post" class="form-horizontal" role="form">
+{% if form.email.vars.errors|length
+	 or form.username.vars.errors|length
+	 or form.plainPassword.first.vars.errors|length
+	 or form.vars.errors|length %}
+							<div class="alert alert-danger">
+								<p>{% trans %}form.error{% endtrans %} :</p>
+								<ul>
+{% for error in form.email.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% for error in form.username.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% for error in form.plainPassword.first.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% for error in form.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+								</ul>
+							</div>
+{% endif %}
+							<div class="form-group">
+								<label for="email" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.email{% endtrans %}</label>
+								<div class="col-md-9">
+									<input type="email" class="form-control" id="email" name="{{form.email.vars.full_name}}" value="{{form.email.vars.value}}" placeholder="{% trans %}form.email{% endtrans %}" autocomplete="off" autofocus required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="username" class="col-md-3 control-label">{% trans %}form.username{% endtrans %}</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" id="username" name="{{form.username.vars.full_name}}" value="{{form.username.vars.value}}" placeholder="{% trans %}form.username{% endtrans %}" autocomplete="off" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="password" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.password{% endtrans %}</label>
+								<div class="col-md-9">
+									<input type="password" class="form-control" id="password" name="{{form.plainPassword.first.vars.full_name}}" placeholder="{% trans from 'FOSUserBundle' %}form.password{% endtrans %}" autocomplete="off" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="password2" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.password_confirmation{% endtrans %}</label>
+								<div class="col-md-9">
+									<input type="password" class="form-control" id="password2" name="{{form.plainPassword.second.vars.full_name}}" placeholder="{% trans from 'FOSUserBundle' %}form.password_confirmation{% endtrans %}" autocomplete="off" required>
+								</div>
+							</div>
+							<div class="form-group submit">
+								<div class="col-md-offset-3 col-md-9">
+									<input type="hidden" name="{{form._token.vars.full_name}}" value="{{form._token.vars.value}}" />
+									<button type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp;{% trans from 'FOSUserBundle' %}registration.submit{% endtrans %}</button>
+{#									<span>{% trans %}or{% endtrans %}</span>#}
+								</div>
+							</div>
+{#
+							<div class="form-group othersignin">
+								<div class="col-md-offset-3 col-md-9">
+									<a href="" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</a>
+								</div>
+							</div>
+#}
+						</form>
+					</div>
+				</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+or: or
+form:
+    error: Error
+    email.or.username: Email or username
+    username: Username
+    confirmation:
+        yes: oui
+        no: non
+    signin:
+        sign.in: Sign in
+        forgot.password: Forgot password ?
+        facebook: Login with Facebook
+        have.no.account: Don't have an account ?
+        sign.up.here: Sign Up Here !
+    register:
+        sign.up: Sign up
+        sign.in: Sign In
+        success: Congratulation, you are registered now !
+    lost.password:
+        lost.password: Forget your password ?
+        please.type.username: Please type your username or email
+        submit: Submit
+profile:
+    profile: Profile
+    edit: Edit
+    unsubscribe: Unsubscribe
+unsubscribe:
+    unsubscribe: Unsubscribe
+    confirmation_text: Are you sure to unsubscribe ?

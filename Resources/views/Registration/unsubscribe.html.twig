@@ -1,0 +1,37 @@
+{# Template of registration form #}
+{% extends "FulgurioUserBundle::layout_like_popup.html.twig" %}
+
+{% block title %}{% trans %}form.register.sign.up{% endtrans %}{% endblock %}
+
+{% block styles %}
+.container .panel-heading a {
+	float:right;
+	font-size: 85%;
+	position: relative;
+	top:-10px;
+}
+.container .form-group.submit span {
+	margin-left: 8px;
+}
+{#
+.container .form-group.othersignin {
+	border-top: 1px solid #999;
+	padding-top: 20px;
+}
+#}
+{% endblock %}
+
+{% block content %}
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div class="panel-title">{% trans %}unsubscribe.unsubscribe{% endtrans %}</div>
+					</div>
+					<div class="panel-body">
+						<form action="{{ path('fulgurio_user_default_unsubscribe') }}" method="post" class="form-horizontal" role="form">
+							<p>{% trans %}unsubscribe.confirmation_text{% endtrans %}</p>
+							<button type="submit" name="confirm" value="yes" class="btn btn-primary">{% trans %}form.confirmation.yes{% endtrans %}</button>
+							&nbsp;<a href="{{ path('fos_user_profile_show') }}" class="btn btn-default">{% trans %}form.confirmation.no{% endtrans %}</a>
+						</form>
+					</div>
+				</div>
+{% endblock %}
