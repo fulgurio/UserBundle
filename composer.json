@@ -18,29 +18,5 @@
     "require": {
         "fulgurio/twitter-bootstrap-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~2.0@dev"
-    },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "fulgurio/twitter-bootstrap-bundle",
-                "version": "master",
-                "autoload": {
-                    "psr-0": {
-                        "Fulgurio\\TwitterBootstrapBundle": ""
-                    }
-                },
-                "target-dir": "Fulgurio/TwitterBootstrapBundle",
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/fulgurio/TwitterBootstrapBundle.git",
-                    "reference": "master"
-                },
-                "dist": {
-                    "type": "zip",
-                    "url": "https://github.com/fulgurio/TwitterBootstrapBundle/zipball/master"
-                }
-            }
-        }
-    ]
+    }
 }
