@@ -61,7 +61,7 @@
 							<div class="form-group othersignin">
 								<div class="col-sm-12 controls">
 									<input type="hidden" name="login[csrf_token]" value="{{ csrf_token }}">
-									<button class="btn btn-success">{% trans from 'FOSUserBundle' %}security.login.submit{% endtrans %}</button>
+									<button type="submit" class="btn btn-success">{% trans from 'FOSUserBundle' %}security.login.submit{% endtrans %}</button>
 {#								<a href="#" class="btn btn-primary">{% trans %}form.signin.facebook{% endtrans %}</a>#}
 								</div>
 							</div>
