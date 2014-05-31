@@ -38,9 +38,9 @@ class ProfileControllerTest extends WebTestCase
         $data['login[email]'] = 'user2change@example.com';
         $crawler = $client->submit($form,
                 array(
-                    'profil[email]' => $data['login[email]'],
-                    'profil[username]' => 'user2change',
-                    'profil[current_password]' => $data['login[password]']
+                    'profile[email]' => $data['login[email]'],
+                    'profile[username]' => 'user2change',
+                    'profile[current_password]' => $data['login[password]']
                     )
                 );
 
