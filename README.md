@@ -1,13 +1,13 @@
 Fulgurio User bundle
 ========================
 
-This bundle is a working user registration using FOSUserBundle. It use
+This bundle is a working user registration using FOSUserBundle. It use also
 Twitter Bootstrap.
-This bundle will be forked for your futur development.
+This bundle will be a bootstrap for your futur development, just fork it !
 
 ## Installation
 
-Please take a look at FOSUserBundle documentation. Here you will find all 
+Please take a look at FOSUserBundle documentation. Here you will find all
 informations to work with this bundle
 
 1. Download FulgurioUserBundle using composer
@@ -36,6 +36,7 @@ public function registerBundles()
         // ...
         new FOS\UserBundle\FOSUserBundle(),
         new Fulgurio\UserBundle\FulgurioUserBundle(),
+        new Fulgurio\TwitterBootstrapBundle\FulgurioTwitterBootstrapBundle()
     );
 }
 ```
@@ -45,8 +46,8 @@ public function registerBundles()
 Please read FOSUserBundle security for more information. Here is the well
 configuration :
 
-Below is a minimal example of the configuration necessary to use the FOSUserBundle
-in your application:
+Below is a minimal example of the configuration necessary to use the
+FOSUserBundle in your application:
 
 ``` yaml
 # app/config/security.yml
@@ -60,9 +61,12 @@ security:
 
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username
+            id: fos_user.user_provider.username_email
 
     firewalls:
+         dev:
+             pattern:  ^/(_(profiler|wdt)|css|images|js)/
+             security: false
         main:
             pattern: ^/
             form_login:
@@ -103,6 +107,9 @@ fos_user:
     resetting:
         form:
             name: resetPassword
+    profile:
+        form:
+            name: profil
 ```
 
 ### Step 5: Import routing files

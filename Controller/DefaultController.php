@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of the FulgurioUserBundle package.
+ *
+ * (c) Fulgurio <http://fulgurio.net/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Fulgurio\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,7 +40,6 @@ class DefaultController extends Controller
 //             $userManager->updateUser($user);
             $userManager->deleteUser($this->getUser());
             return $this->redirect($this->get('router')->generate('fos_user_security_logout'));
-
         }
         return array();
     }

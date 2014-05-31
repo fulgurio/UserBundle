@@ -3,9 +3,10 @@ form:
     error: Error
     email.or.username: Email or username
     username: Username
+    email: Email
     confirmation:
-        yes: oui
-        no: non
+        yes: yes
+        no: no
     signin:
         sign.in: Sign in
         forgot.password: Forgot password ?
@@ -24,6 +25,7 @@ profile:
     profile: Profile
     edit: Edit
     unsubscribe: Unsubscribe
+    back: Back
 unsubscribe:
     unsubscribe: Unsubscribe
     confirmation_text: Are you sure to unsubscribe ?

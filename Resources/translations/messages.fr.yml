@@ -3,6 +3,7 @@ form:
     error: Erreur
     email.or.username: Courriel ou nom d'utilisateur
     username: Nom d'utilisateur
+    email: Courriel
     confirmation:
         yes: oui
         no: non
@@ -24,6 +25,7 @@ profile:
     profile: Profil
     edit: Editer
     unsubscribe: Se désinscrire
+    back: Retour
 unsubscribe:
     unsubscribe: Se désinscrire
     confirmation_text: Etes vous sûr de vouloir vous désinscrire ?

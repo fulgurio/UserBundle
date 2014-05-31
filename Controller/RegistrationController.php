@@ -20,6 +20,13 @@ use FOS\UserBundle\Controller\RegistrationController as BaseController;
  */
 class RegistrationController extends BaseController
 {
+    /**
+     * If user is already connected, we redirect him to homepage
+     *
+     * @see FOS\UserBundle\Controller\RegistrationController
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function registerAction(Request $request)
     {
         if (TRUE === $this->container->get('security.context')->isGranted('ROLE_USER'))
