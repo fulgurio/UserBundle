@@ -33,4 +33,25 @@ class TwigSwiftMailer extends BaseTwigSwiftMailer
                 $user->getEmail()
                 );
     }
+
+    /**
+     * Send an email when user unregisters or with administration panel
+     *
+     * @param \FOS\UserBundle\Model\UserInterface $user
+     */
+    public function sendUserHasUnsubscribedMessage(UserInterface $user)
+    {
+        if ($this->parameters['enabled']['unsubscribe'] === FALSE)
+        {
+            return;
+        }
+        $template = $this->parameters['template']['unsubscribe'];
+        $context = array('user' => $user);
+        $this->sendMessage(
+                $template,
+                $context,
+                $this->parameters['from_email']['unsubscribe'],
+                $user->getEmail()
+                );
+    }
 }

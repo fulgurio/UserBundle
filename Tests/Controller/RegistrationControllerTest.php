@@ -72,7 +72,6 @@ class RegistrationControllerTest extends WebTestCase
             'login[password]' => 'user1'
         );
         $client = static::createClient();
-        $client->followRedirects();
 
         $crawler = $client->request('GET', '/login');
 
@@ -87,7 +86,20 @@ class RegistrationControllerTest extends WebTestCase
 
         // Confirmation submission
         $form = $crawler->filter('button[type="submit"]')->form();
+        $client->enableProfiler();
         $crawler = $client->submit($form);
+
+        // Email to alert that password has been changed
+        $mailCollector = $client->getProfile()->getCollector('swiftmailer');
+         // Check that an e-mail was sent
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+        $collectedMessages = $mailCollector->getMessages();
+        $message = $collectedMessages[0];
+        $this->assertEquals('unsubscribe.email.subject', $message->getSubject());
+        $this->assertEquals('unsubscribe.email.message', trim($message->getBody()));
+
+        $crawler = $client->followRedirect();
+        $crawler = $client->followRedirect();
         $security = $client->getContainer()->get('security.context');
         $this->assertFalse($security->isGranted('ROLE_USER'));
 
@@ -95,6 +107,7 @@ class RegistrationControllerTest extends WebTestCase
 
         $form = $crawler->filter('button[type="submit"]')->form();
         $crawler = $client->submit($form, $data);
+        $crawler = $client->followRedirect();
         $this->assertCount(1, $crawler->filter('div.alert-danger li:contains("Bad credentials")'));
     }
 }

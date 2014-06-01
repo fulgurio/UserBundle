@@ -36,9 +36,8 @@ class DefaultController extends Controller
         {
             $userManager = $this->container->get('fos_user.user_manager');
             $user = $this->getUser();
-            $user->setEnabled(FALSE);
-//             $userManager->updateUser($user);
-            $userManager->deleteUser($this->getUser());
+            $this->container->get('fulgurio_user.mailer')->sendUserHasUnsubscribedMessage($user);
+            $userManager->deleteUser($user);
             return $this->redirect($this->get('router')->generate('fos_user_security_logout'));
         }
         return array();

@@ -38,7 +38,15 @@ change_password:
 
             Cordialement,
             L'équipe.
-
 unsubscribe:
     unsubscribe: Se désinscrire
     confirmation_text: Etes vous sûr de vouloir vous désinscrire ?
+    email:
+        subject: Désinscription au site
+        message: |
+            Bonjour %USERNAME% !
+
+            Votre désinscription a bien été prise en compte.
+
+            Cordialement,
+            L'équipe.

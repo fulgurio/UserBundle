@@ -37,7 +37,16 @@ change_password:
 
             Regards,
             the Team.
-
 unsubscribe:
     unsubscribe: Unsubscribe
     confirmation_text: Are you sure to unsubscribe ?
+    email:
+        subject: Unsubscribe
+        message: |
+            Hello %USERNAME%!
+
+            You'll now unregistred from the website.
+
+            Regards,
+            the Team.
+

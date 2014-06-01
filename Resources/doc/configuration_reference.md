@@ -15,6 +15,12 @@ fulgurio_user:
             from_email:
                 address: webmaster@example.com
                 sender_name: webmaster
+    unsubscribe:
+        email:
+            enabled: false
+            from_email:
+                address: webmaster@example.com
+                sender_name: webmaster
 ```
 
 

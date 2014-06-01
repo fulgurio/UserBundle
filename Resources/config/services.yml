@@ -13,5 +13,10 @@ services:
             -
                 template:
                     change_password: %fulgurio_user.change_password.email.template%
+                    unsubscribe:     %fulgurio_user.unsubscribe.email.template%
                 from_email:
                     change_password: %fulgurio_user.change_password.email.from_email%
+                    unsubscribe:     %fulgurio_user.unsubscribe.email.from_email%
+                enabled:
+                    unsubscribe:     %fulgurio_user.unsubscribe.email.enabled%
+

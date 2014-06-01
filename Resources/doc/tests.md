@@ -57,6 +57,9 @@ fulgurio_user:
     change_password:
         email:
             enabled: true
+    unsubscribe:
+        email:
+            enabled: true
 ```
 
 ### Step 3: Launch tests

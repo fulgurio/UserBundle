@@ -57,10 +57,8 @@ class UserManagerController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($user);
             $em->flush();
-            $this->get('session')->getFlashBag()->add(
-                'notice',
-                $this->get('translator')->trans('delete_success_message', array(), 'admin')
-            );
+            $this->container->get('fulgurio_user.mailer')->sendUserHasUnsubscribedMessage($user);
+            $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('delete_success_message', array(), 'admin'));
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
         else if ($request->get('confirm') === 'no')
@@ -117,10 +115,7 @@ class UserManagerController extends Controller
         {
             $user->setEnabled(TRUE);
             $this->container->get('fos_user.user_manager')->updateUser($user);
-            $this->get('session')->getFlashBag()->add(
-                'notice',
-                $this->get('translator')->trans('unban_success_message', array(), 'admin')
-            );
+            $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('unban_success_message', array(), 'admin'));
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
         else if ($request->get('confirm') === 'no')
@@ -167,10 +162,7 @@ class UserManagerController extends Controller
             $user->setPasswordRequestedAt(new \DateTime());
             $this->container->get('fos_user.user_manager')->updateUser($user);
 
-            $this->get('session')->getFlashBag()->add(
-                'notice',
-                $this->get('translator')->trans('reset_password_success_message', array('%EMAIL%' => $user->getEmail()), 'admin')
-            );
+            $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('reset_password_success_message', array('%EMAIL%' => $user->getEmail()), 'admin'));
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
         else if ($request->get('confirm') === 'no')
