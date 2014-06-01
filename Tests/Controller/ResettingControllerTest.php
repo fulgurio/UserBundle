@@ -39,9 +39,11 @@ class ResettingControllerTest extends WebTestCase
         $collectedMessages = $mailCollector->getMessages();
         $message = $collectedMessages[0];
         $this->assertEquals('resetting.email.subject', $message->getSubject());
-        $this->assertEquals('resetting.email.message', $message->getBody());
+        $this->assertEquals('resetting.email.message', trim($message->getBody()));
 
         $crawler = $client->followRedirect();
         $this->assertCount(1, $crawler->filter('p:contains("resetting.check_email")'));
+
+        //@todo : faire l'appel à l'url avec le token, puis mettr le nouveau mot de passe, et tester le nouveau login
     }
 }

@@ -102,7 +102,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 ```
 
-You access to administration by a htt_basic access with user "admin" : please 
+You access to administration by a htt_basic access with user "admin" : please
 do not forget to replace "adminpass" with your own password !
 
 ### Step 4: Configure the bundle
@@ -113,10 +113,20 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Fulgurio\UserBundle\Entity\User
+    service:
+        mailer: fos_user.mailer.twig_swift
+#    from_email:
+#        address:        noreply@example.com
+#        sender_name:    No replay
     registration:
+        confirmation:
+            enabled:  false
+            template: FulgurioUserBundle:Registration:email.html.twig
         form:
             name: registration
     resetting:
+        email:
+            template: FulgurioUserBundle:Resetting:email.html.twig
         form:
             name: resetPassword
     profile:
@@ -171,4 +181,32 @@ Here is the sample for ORM run the following command.
 
 ``` bash
 $ php app/console doctrine:schema:update --force
+```
+
+
+
+## Availables features
+
+### Email sender
+
+You can (must) set the email sender, just change config.yml as folow :
+
+``` yaml
+# app/config/config.yml
+fos_user:
+    from_email:
+        address:        noreply@example.com
+        sender_name:    No replay
+```
+
+### Registering
+
+You can valid a user account by sending an email with a link to valid
+subscription. Just change the config.yml as following :
+``` yaml
+# app/config/config.yml
+fos_user:
+    registration:
+        confirmation:
+            enabled:  false
 ```
