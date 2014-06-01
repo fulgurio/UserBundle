@@ -1,13 +1,13 @@
-{% block subject %}{{ 'unsubscribe.email.subject'|trans({'%USERNAME%': user.username}) }}{% endblock %}
+{% block subject %}{{ 'unban.email.subject'|trans({'%USERNAME%': user.username}, 'admin') }}{% endblock %}
 
 {% block body_text %}
 {% autoescape false %}
-{{ 'unsubscribe.email.message'|trans({'%USERNAME%': user.username}) }}
+{{ 'unban.email.message'|trans({'%USERNAME%': user.username}, 'admin') }}
 {% endautoescape %}
 {% endblock %}
 
 {% block body_html %}
 {% autoescape false %}
-{{ 'unsubscribe.email.message'|trans({'%USERNAME%': user.username}) }}
+{{ 'unban.email.message'|trans({'%USERNAME%': user.username}, 'admin') }}
 {% endautoescape %}
 {% endblock %}

@@ -85,10 +85,8 @@ class UserManagerController extends Controller
         {
             $user->setEnabled(FALSE);
             $this->container->get('fos_user.user_manager')->updateUser($user);
-            $this->get('session')->getFlashBag()->add(
-                'notice',
-                $this->get('translator')->trans('ban_success_message', array(), 'admin')
-            );
+            $this->container->get('fulgurio_user.mailer')->sendAccountHasBeenBannedMessage($user);
+            $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('ban.ban_success_message', array(), 'admin'));
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
         else if ($request->get('confirm') === 'no')
@@ -99,7 +97,7 @@ class UserManagerController extends Controller
         $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
         return $this->render($templateName, array(
                 'action' => $this->generateUrl('fulgurio_user_usermanager_ban', array('userId' => $userId)),
-                'confirmationMessage' => $this->get('translator')->trans('ban_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
+                'confirmationMessage' => $this->get('translator')->trans('ban.ban_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
         ));
     }
 
@@ -115,7 +113,8 @@ class UserManagerController extends Controller
         {
             $user->setEnabled(TRUE);
             $this->container->get('fos_user.user_manager')->updateUser($user);
-            $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('unban_success_message', array(), 'admin'));
+            $this->container->get('fulgurio_user.mailer')->sendAccountHasBeenBannedMessage($user, TRUE);
+            $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('unban.unban_success_message', array(), 'admin'));
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
         else if ($request->get('confirm') === 'no')
@@ -126,7 +125,7 @@ class UserManagerController extends Controller
         $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
         return $this->render($templateName, array(
                 'action' => $this->generateUrl('fulgurio_user_usermanager_unban', array('userId' => $userId)),
-                'confirmationMessage' => $this->get('translator')->trans('unban_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
+                'confirmationMessage' => $this->get('translator')->trans('unban.unban_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
         ));
     }
 

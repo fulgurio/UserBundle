@@ -39,6 +39,7 @@ class Configuration implements ConfigurationInterface
                 ->end();
         $this->addChangePasswordSection($rootNode);
         $this->addUnsubscribeSection($rootNode);
+        $this->addBanSection($rootNode);
         return $treeBuilder;
     }
 
@@ -105,4 +106,49 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
     }
+
+    /**
+     * Ban configuration
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     */
+    private function addBanSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('ban')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('email')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->defaultFalse()->end()
+                                ->scalarNode('template')->defaultValue('FulgurioUserBundle:Admin:email_ban.html.twig')->end()
+                                ->arrayNode('from_email')
+                                    ->canBeUnset()
+                                    ->children()
+                                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+                ->arrayNode('unban')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('email')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('template')->defaultValue('FulgurioUserBundle:Admin:email_unban.html.twig')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
 }

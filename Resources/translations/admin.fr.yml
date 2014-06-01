@@ -17,12 +17,32 @@ edit:                           Modifier
 delete:                         Supprimer
 delete_confirm_message:         Etes-vous sûr de vouloir supprimer l'utilisateur "%TITLE%" ?
 delete_success_message:         Utilisateur effacé !
-ban:                            Bannir
-ban_confirm_message:            Etes-vous sûr de vouloir bannir l'utilisateur "%TITLE%" ?
-ban_success_message:            Utilisateur banni !
-unban:                          Dé-bannir
-unban_confirm_message:          Etes-vous sûr de vouloir dé-bannir l'utilisateur "%TITLE%" ?
-unban_success_message:          Utilisateur débanni !
+ban:
+    ban:                        Bannir
+    ban_confirm_message:        Etes-vous sûr de vouloir bannir l'utilisateur "%TITLE%" ?
+    ban_success_message:        Utilisateur banni !
+    email:
+        subject: Votre compte a été désactivé
+        message: |
+            Bonjour %USERNAME% !
+
+            Nous venons de désactiver votre compte.
+
+            Cordialement,
+            L'équipe.
+unban:
+    unban:                      Dé-bannir
+    unban_confirm_message:      Etes-vous sûr de vouloir dé-bannir l'utilisateur "%TITLE%" ?
+    unban_success_message:      Utilisateur débanni !
+    email:
+        subject: Votre compte a été ré-activé
+        message: |
+            Bonjour %USERNAME% !
+
+            Nous venons de ré-activer votre compte.
+
+            Cordialement,
+            L'équipe.
 reset_password:                 Ré-initialiser le mot de passe
 reset_password_confirm_message: Etes-vous sûr de vouloir ré-initialiser le mot de passe de l'utilisateur "%TITLE%" ?
 reset_password_success_message: Un courriel de ré-initialisation de mot de passe a été envoyé à l'adresse "%EMAIL%" !

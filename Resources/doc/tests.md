@@ -60,6 +60,9 @@ fulgurio_user:
     unsubscribe:
         email:
             enabled: true
+    ban:
+        email:
+            enabled: true
 ```
 
 ### Step 3: Launch tests

@@ -17,12 +17,32 @@ edit:                           Edit
 delete:                         Delete
 delete_confirm_message:         Are you sure to delete "%TITLE%" user ?
 delete_success_message:         User has been removed !
-ban:                            Ban
-ban_confirm_message:            Are you sure to ban "%TITLE%" user ?
-ban_success_message:            User has been banned !
-unban:                          Unban
-unban_confirm_message:          Are you sure to unban "%TITLE%" user ?
-unban_success_message:          User has been unbanned !
+ban:
+    ban:                        Ban
+    ban_confirm_message:        Are you sure to ban "%TITLE%" user ?
+    ban_success_message:        User has been banned !
+    email:
+        subject: Your account has been disabled
+        message: |
+            Hello %USERNAME% !
+
+            We have disabled your account.
+
+            Regards,
+            the Team.
+unban:
+    unban:                      Unban
+    unban_confirm_message:      Are you sure to unban "%TITLE%" user ?
+    unban_success_message:      User has been unbanned !
+    email:
+        subject: Your account has been enabled
+        message: |
+            Hello %USERNAME% !
+
+            We have enabled your account.
+
+            Regards,
+            the Team.
 reset_password:                 Reset password
 reset_password_confirm_message: Are you sure to reset password for "%TITLE%" user ?
 reset_password_success_message: An email for resetting password has been set to "%EMAIL%" !

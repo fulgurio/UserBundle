@@ -40,21 +40,44 @@ class UserManagerControllerTest extends WebTestCase
     public function testBanAction()
     {
         $client = $this->getClient();
-        $client->followRedirects();
         $crawler = $client->request('GET', '/admin/users');
-        $this->assertCount(2, $crawler->filter('a[title="ban"]'));
+        $this->assertCount(2, $crawler->filter('a[title="ban.ban"]'));
 
-        $banLink = $crawler->filter('a[title="ban"]')->link();
+        $banLink = $crawler->filter('a[title="ban.ban"]')->link();
         $crawler = $client->click($banLink);
         $form = $crawler->filter('button:contains("form.confirmation.yes")')->form();
+        $client->enableProfiler();
         $crawler = $client->submit($form);
-        $this->assertCount(1, $crawler->filter('a[title="ban"]'));
 
-        $unbanLink = $crawler->filter('a[title="unban"]')->link();
+        // Email to change password has been sent
+        $mailCollector = $client->getProfile()->getCollector('swiftmailer');
+         // Check that an e-mail was sent
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+        $collectedMessages = $mailCollector->getMessages();
+        $message = $collectedMessages[0];
+        $this->assertEquals('ban.email.subject', $message->getSubject());
+        $this->assertEquals('ban.email.message', trim($message->getBody()));
+        $crawler = $client->followRedirect();
+
+        $this->assertCount(1, $crawler->filter('a[title="ban.ban"]'));
+
+        $unbanLink = $crawler->filter('a[title="unban.unban"]')->link();
         $crawler = $client->click($unbanLink);
         $form = $crawler->filter('button:contains("form.confirmation.yes")')->form();
+        $client->enableProfiler();
         $crawler = $client->submit($form);
-        $this->assertCount(2, $crawler->filter('a[title="ban"]'));
+
+        // Email to change password has been sent
+        $mailCollector = $client->getProfile()->getCollector('swiftmailer');
+         // Check that an e-mail was sent
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+        $collectedMessages = $mailCollector->getMessages();
+        $message = $collectedMessages[0];
+        $this->assertEquals('unban.email.subject', $message->getSubject());
+        $this->assertEquals('unban.email.message', trim($message->getBody()));
+        $crawler = $client->followRedirect();
+
+        $this->assertCount(2, $crawler->filter('a[title="ban.ban"]'));
     }
 
     /**

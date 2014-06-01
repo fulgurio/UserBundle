@@ -40,6 +40,10 @@ class FulgurioUserExtension extends Extension
         {
             $this->loadUnsubscribe($config['unsubscribe'], $container, $loader, $config['from_email']);
         }
+        if (!empty($config['ban']))
+        {
+            $this->loadBan($config, $container, $loader, $config['from_email']);
+        }
     }
 
     /**
@@ -83,5 +87,26 @@ class FulgurioUserExtension extends Extension
         }
         $container->setParameter('fulgurio_user.unsubscribe.email.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
         $container->setParameter('fulgurio_user.unsubscribe.email.template', $config['email']['template']);
+    }
+
+    /**
+     * Ban / unban configuration
+     *
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $loader
+     * @param array $fromEmail
+     */
+    private function loadBan(array $config, ContainerBuilder $container, YamlFileLoader $loader, array $fromEmail)
+    {
+        $container->setParameter('fulgurio_user.ban.email.enabled', $config['ban']['email']['enabled']);
+        if (isset($config['ban']['email']['from_email']))
+        {
+            $fromEmail = $config['ban']['email']['from_email'];
+            unset($config['ban']['email']['from_email']);
+        }
+        $container->setParameter('fulgurio_user.ban.email.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
+        $container->setParameter('fulgurio_user.ban.email.template', $config['ban']['email']['template']);
+        $container->setParameter('fulgurio_user.unban.email.template', $config['unban']['email']['template']);
     }
 }
