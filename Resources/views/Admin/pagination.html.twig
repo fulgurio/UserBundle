@@ -1,0 +1,45 @@
+{% if pageCount > 1 %}
+				<div class="pull-right">
+					<ul class="pagination">
+{%   if app.request.method == 'POST' %}
+{%     if first is defined and current != first %}
+						<li><button class="btn btn-link" name="page" value="{{ first }}" title="{% trans from 'admin' %}pagination.first_page{% endtrans %}">|&laquo;</button></li>
+{%     endif %}
+{%     if previous is defined %}
+						<li><button class="btn btn-link" name="page" value="{{ previous }}" title="{% trans from 'admin' %}pagination.previous_page{% endtrans %}">&laquo;</button></li>
+{%     else %}
+						<li class="disabled"><a>&laquo;</a></li>
+{%     endif %}
+						<li class="active"><a>{{ current }}<span class="sr-only">({%trans from 'admin' %}pagination.current{% endtrans %})</span></a></li>
+{%     if next is defined %}
+						<li><button class="btn btn-link" name="page" value="{{ next }}" title="{% trans from 'admin' %}pagination.next_page{% endtrans %}">&raquo;</button></li>
+{%     else %}
+						<li class="disabled"><a>&raquo;</a></li>
+{%     endif %}
+{%     if last is defined and current != last %}
+
+						<li><button class="btn btn-link" name="page" value="{{ last }}" title="{% trans from 'admin' %}pagination.last_page{% endtrans %}">&raquo;|</button></li>
+{%     endif %}
+{%   else %}
+{%     if first is defined and current != first %}
+						<li><a href="{{ path(route, query|merge({'page': first})) }}" title="{% trans from 'admin' %}pagination.first_page{% endtrans %}">|&laquo;</a></li>
+{%     endif %}
+{%     if previous is defined %}
+						<li><a href="{{ path(route, query|merge({'page': previous})) }}" title="{% trans from 'admin' %}pagination.previous_page{% endtrans %}">&laquo;</a></li>
+{%     else %}
+						<li class="disabled"><a>&laquo;</a></li>
+{%     endif %}
+						<li class="active"><a>{{ current }}<span class="sr-only">({% trans %}pagination.current{% endtrans %})</span></a></li>
+{%     if next is defined %}
+						<li><a href="{{ path(route, query|merge({'page': next})) }}" title="{% trans from 'admin' %}pagination.next_page{% endtrans %}">&raquo;</a></li>
+{%     else %}
+						<li class="disabled"><a>&raquo;</a></li>
+{%     endif %}
+{%     if last is defined and current != last %}
+
+						<li><a href="{{ path(route, query|merge({'page': last})) }}" title="{% trans from 'admin' %}pagination.last_page{% endtrans %}">&raquo;|</a></li>
+{%     endif %}
+{%   endif %}
+					</ul>
+				</div>
+{% endif %}

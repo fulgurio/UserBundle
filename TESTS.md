@@ -40,6 +40,16 @@ public function registerBundles()
 +
 +liip_functional_test:
 +    cache_sqlite_db: true
+
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+    providers:
+        in_memory:
+            memory:
+                users:
+                    admin: { password: admin, roles: [ 'ROLE_ADMIN' ] }
+
 ```
 
 ### Step 3: Launch tests

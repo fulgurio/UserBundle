@@ -1,0 +1,16 @@
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content"></div>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+	$('.popupClose').on('click', function(e) {
+		e.preventDefault();
+		$('#myModal').modal('hide');
+	});
+	$('#myModal').on('hidden.bs.modal', function () {
+		$(this).removeData('bs.modal');
+	});
+});
+</script>

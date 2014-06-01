@@ -1,0 +1,22 @@
+pagination:
+    first_page:               First page
+    last_page:                Last page
+    current:                  Current
+    previous_page:            Previous page
+    next_page:                Next page
+    no_result:                No result found
+popup_confirmation:
+    title:                Confirmation
+admin_interface:          Administration
+dashboard:                Dashboard
+users_manager:            Gestion des utilisateurs
+no_user:                  No user
+no_user_found:            No user found for "%QUERY%" search
+add_user:                 Ajouter un utilisateur
+edit:                     Edit
+delete:                   Delete
+delete_confirm_message:   Etes-vous sûr de vouloir supprimer l'utilisateur "%TITLE%" ?
+delete_success_message:   User has been removed !
+cancel:                   Cancel
+save:                     Save
+search:                   Search

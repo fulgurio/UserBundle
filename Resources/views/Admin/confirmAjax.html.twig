@@ -1,0 +1,11 @@
+<form action="{{ action }}" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title">{% trans from 'admin' %}popup_confirmation.title{% endtrans %}</h4>
+	</div>
+	<div class="modal-body">{{ confirmationMessage }}</div>
+	<div class="modal-footer">
+		<button type="submit" name="confirm" class="btn btn-primary" value="yes">{% trans %}form.confirmation.yes{% endtrans %}</button>
+		<button type="submit" name="confirm" class="btn btn-default popupClose" value="no" data-dismiss="modal">{% trans %}form.confirmation.no{% endtrans %}</button>
+	</div>
+</form>

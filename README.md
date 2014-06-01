@@ -35,6 +35,7 @@ public function registerBundles()
     $bundles = array(
         // ...
         new FOS\UserBundle\FOSUserBundle(),
+        new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         new Fulgurio\UserBundle\FulgurioUserBundle(),
         new Fulgurio\TwitterBootstrapBundle\FulgurioTwitterBootstrapBundle()
     );
@@ -60,6 +61,10 @@ security:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
+        in_memory:
+            memory:
+                users:
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
         fos_userbundle:
             id: fos_user.user_provider.username_email
 
@@ -67,6 +72,10 @@ security:
          dev:
              pattern:  ^/(_(profiler|wdt)|css|images|js)/
              security: false
+        admin:
+            pattern: ^/admin
+            http_basic:
+                realm: "Secured Demo Area"
         main:
             pattern: ^/
             form_login:
@@ -92,6 +101,9 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 ```
+
+You access to administration by a htt_basic access with user "admin" : please 
+do not forget to replace "adminpass" with your own password !
 
 ### Step 4: Configure the bundle
 

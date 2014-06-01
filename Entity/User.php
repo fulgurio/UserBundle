@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  * Description of User
  *
  * @author Vincent GUERARD <v.guerard@fulgurio.net>
- *        
- *         @ORM\Entity
+ *
+ *         @ORM\Entity(repositoryClass="Fulgurio\UserBundle\Repository\UserRepository")
  *         @ORM\Table(name="fulgurio_user")
  */
 class User extends BaseUser
