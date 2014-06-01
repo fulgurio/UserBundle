@@ -1,28 +1,31 @@
 pagination:
-    first_page:           Première page
-    last_page:            Dernière page
-    current:              Page actuelle
-    previous_page:        Page précédente
-    next_page:            Page suivante
-    no_result:            Aucun résultat trouvé
+    first_page:                 Première page
+    last_page:                  Dernière page
+    current:                    Page actuelle
+    previous_page:              Page précédente
+    next_page:                  Page suivante
+    no_result:                  Aucun résultat trouvé
 popup_confirmation:
-    title:                Confirmation
-admin_interface:          Administration
-dashboard:                Tableau de bord
-users_manager:            Gestion des utilisateurs
-no_user:                  Aucun utilisateur
-no_user_found:            Aucun utilisateur trouvé pour "%QUERY%"
-add_user:                 Ajouter un utilisateur
-edit:                     Modifier
-delete:                   Supprimer
-delete_confirm_message:   Etes-vous sûr de vouloir supprimer l'utilisateur "%TITLE%" ?
-delete_success_message:   Utilisateur effacé !
-ban:                      Bannir
-ban_confirm_message:      Etes-vous sûr de vouloir bannir l'utilisateur "%TITLE%" ?
-ban_success_message:      Utilisateur banni !
-unban:                    Dé-bannir
-unban_confirm_message:    Etes-vous sûr de vouloir dé-bannir l'utilisateur "%TITLE%" ?
-unban_success_message:    Utilisateur débanni !
-cancel:                   Annuler
-save:                     Enregistrer
-search:                   Rechercher
+    title:                      Confirmation
+admin_interface:                Administration
+dashboard:                      Tableau de bord
+users_manager:                  Gestion des utilisateurs
+no_user:                        Aucun utilisateur
+no_user_found:                  Aucun utilisateur trouvé pour "%QUERY%"
+add_user:                       Ajouter un utilisateur
+edit:                           Modifier
+delete:                         Supprimer
+delete_confirm_message:         Etes-vous sûr de vouloir supprimer l'utilisateur "%TITLE%" ?
+delete_success_message:         Utilisateur effacé !
+ban:                            Bannir
+ban_confirm_message:            Etes-vous sûr de vouloir bannir l'utilisateur "%TITLE%" ?
+ban_success_message:            Utilisateur banni !
+unban:                          Dé-bannir
+unban_confirm_message:          Etes-vous sûr de vouloir dé-bannir l'utilisateur "%TITLE%" ?
+unban_success_message:          Utilisateur débanni !
+reset_password:                 Ré-initialiser le mot de passe
+reset_password_confirm_message: Etes-vous sûr de vouloir ré-initialiser le mot de passe de l'utilisateur "%TITLE%" ?
+reset_password_success_message: Un courriel de ré-initialisation de mot de passe a été envoyé à l'adresse "%EMAIL%" !
+cancel:                         Annuler
+save:                           Enregistrer
+search:                         Rechercher

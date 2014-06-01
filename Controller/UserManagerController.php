@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of the FulgurioUserBundle package.
+ *
+ * (c) Fulgurio <http://fulgurio.net/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Fulgurio\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,7 +38,10 @@ class UserManagerController extends Controller
                         $this->get('request')->get('page', 1),
                         $this->get('request')->get('q')
                         );
-        return array('users' => $users);
+        return array(
+            'users' => $users,
+            'changePasswordTTL' => $this->container->getParameter('fos_user.resetting.token_ttl')
+                );
     }
 
     /**
@@ -74,9 +85,8 @@ class UserManagerController extends Controller
         $request = $this->container->get('request');
         if ($request->get('confirm') === 'yes')
         {
-            $userManager = $this->container->get('fos_user.user_manager');
             $user->setEnabled(FALSE);
-            $userManager->updateUser($user);
+            $this->container->get('fos_user.user_manager')->updateUser($user);
             $this->get('session')->getFlashBag()->add(
                 'notice',
                 $this->get('translator')->trans('ban_success_message', array(), 'admin')
@@ -105,9 +115,8 @@ class UserManagerController extends Controller
         $request = $this->container->get('request');
         if ($request->get('confirm') === 'yes')
         {
-            $userManager = $this->container->get('fos_user.user_manager');
             $user->setEnabled(TRUE);
-            $userManager->updateUser($user);
+            $this->container->get('fos_user.user_manager')->updateUser($user);
             $this->get('session')->getFlashBag()->add(
                 'notice',
                 $this->get('translator')->trans('unban_success_message', array(), 'admin')
@@ -123,6 +132,56 @@ class UserManagerController extends Controller
         return $this->render($templateName, array(
                 'action' => $this->generateUrl('fulgurio_user_usermanager_unban', array('userId' => $userId)),
                 'confirmationMessage' => $this->get('translator')->trans('unban_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
+        ));
+    }
+
+    /**
+     * @see FOS\UserBundle\Controller\ResettingController.sendEmailAction
+     * @Route("/admin/users/{userId}/reset-password")
+     * @Template("FulgurioUserBundle:Admin:confirm.html.twig")
+     */
+    public function resetPasswordAction($userId)
+    {
+        $user = $this->getSpecifiedUser($userId);
+        if ($user->isEnabled() === FALSE)
+        {
+            // User is not enabled, you can not access to this URL without cheating
+            throw new AccessDeniedException();
+        }
+        if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl')))
+        {
+            // An email has been send for password resetting. You can not access to this URL without cheating
+            throw new AccessDeniedException();
+        }
+
+        $request = $this->container->get('request');
+        if ($request->get('confirm') === 'yes')
+        {
+            if (null === $user->getConfirmationToken()) {
+                /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
+                $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+                $user->setConfirmationToken($tokenGenerator->generateToken());
+            }
+
+            $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
+            $user->setPasswordRequestedAt(new \DateTime());
+            $this->container->get('fos_user.user_manager')->updateUser($user);
+
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                $this->get('translator')->trans('reset_password_success_message', array('%EMAIL%' => $user->getEmail()), 'admin')
+            );
+            return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
+        }
+        else if ($request->get('confirm') === 'no')
+        {
+            // @todo : if pagination; it s better to come back a the same page
+            return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
+        }
+        $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
+        return $this->render($templateName, array(
+                'action' => $this->generateUrl('fulgurio_user_usermanager_resetpassword', array('userId' => $userId)),
+                'confirmationMessage' => $this->get('translator')->trans('reset_password_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
         ));
     }
 
