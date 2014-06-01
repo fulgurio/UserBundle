@@ -26,7 +26,19 @@ profile:
     edit: Editer
     unsubscribe: Se désinscrire
     back: Retour
-change_password: Changer le mot de passe
+change_password:
+    change_password: Changer le mot de passe
+    email:
+        subject: Changement de mot de passe
+        message: |
+            Bonjour %USERNAME% !
+
+            Vous venez de modifier votre mot de passe. Si ce n'est pas le cas,
+            merci de prendre contact avec notre équipe.
+
+            Cordialement,
+            L'équipe.
+
 unsubscribe:
     unsubscribe: Se désinscrire
     confirmation_text: Etes vous sûr de vouloir vous désinscrire ?

@@ -1,6 +1,15 @@
 <?php
+/*
+ * This file is part of the FulgurioUserBundle package.
+ *
+ * (c) Fulgurio <http://fulgurio.net/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Fulgurio\UserBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -11,7 +20,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -19,6 +27,49 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('fulgurio_user');
+        $rootNode
+                ->children()
+                    ->arrayNode('from_email')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('address')->defaultValue('webmaster@example.com')->cannotBeEmpty()->end()
+                            ->scalarNode('sender_name')->defaultValue('webmaster')->cannotBeEmpty()->end()
+                        ->end()
+                    ->end()
+                ->end();
+        $this->addChangePasswordSection($rootNode);
         return $treeBuilder;
+    }
+
+    /**
+     * Change password configuration
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     */
+    private function addChangePasswordSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('change_password')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('email')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->defaultFalse()->end()
+                                ->scalarNode('template')->defaultValue('FulgurioUserBundle:ChangePassword:email.html.twig')->end()
+                                ->arrayNode('from_email')
+                                    ->canBeUnset()
+                                    ->children()
+                                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }

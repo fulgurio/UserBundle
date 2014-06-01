@@ -4,3 +4,14 @@ services:
         arguments: [ "@service_container" ]
         tags:
             - { name: kernel.event_subscriber }
+    fulgurio_user.mailer:
+        class: Fulgurio\UserBundle\Mailer\TwigSwiftMailer
+        arguments:
+            - "@mailer"
+            - "@router"
+            - "@twig"
+            -
+                template:
+                    change_password: %fulgurio_user.change_password.email.template%
+                from_email:
+                    change_password: %fulgurio_user.change_password.email.from_email%

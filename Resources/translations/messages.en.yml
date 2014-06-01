@@ -26,7 +26,18 @@ profile:
     edit: Edit
     unsubscribe: Unsubscribe
     back: Back
-change_password: Change password
+change_password:
+    change_password: Change password
+    email:
+        subject: Your password has been changed
+        message: |
+            Hello %USERNAME%!
+
+            You have change your password. If not, please contact our team.
+
+            Regards,
+            the Team.
+
 unsubscribe:
     unsubscribe: Unsubscribe
     confirmation_text: Are you sure to unsubscribe ?

@@ -50,6 +50,13 @@ security:
                 users:
                     admin: { password: admin, roles: [ 'ROLE_ADMIN' ] }
 
+fulgurio_user:
+    from_email:
+        address: test@example.com
+        sender_name: Test
+    change_password:
+        email:
+            enabled: true
 ```
 
 ### Step 3: Launch tests

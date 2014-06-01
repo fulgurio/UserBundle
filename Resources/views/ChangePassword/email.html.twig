@@ -1,0 +1,13 @@
+{% block subject %}{{ 'change_password.email.subject'|trans({'%USERNAME%': user.username}) }}{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+{{ 'change_password.email.message'|trans({'%USERNAME%': user.username}) }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{% autoescape false %}
+{{ 'change_password.email.message'|trans({'%USERNAME%': user.username}) }}
+{% endautoescape %}
+{% endblock %}
