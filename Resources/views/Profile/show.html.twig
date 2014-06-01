@@ -6,6 +6,7 @@
 			<p>{% trans from 'FOSUserBundle' %}profile.show.username{% endtrans %}: {{ user.username }}</p>
 			<p>{% trans from 'FOSUserBundle' %}profile.show.email{% endtrans %}: {{ user.email }}</p>
 			<div><a href="{{ path('fos_user_profile_edit') }}">{% trans %}profile.edit{% endtrans %}</a></div>
+			<div><a href="{{ path('fos_user_change_password') }}">{% trans %}change_password{% endtrans %}</a></div>
 			<div><a href="{{ path('fulgurio_user_default_unsubscribe') }}">{% trans %}profile.unsubscribe{% endtrans %}</a></div>
 		</div>
 {% endblock content %}

@@ -110,6 +110,9 @@ fos_user:
     profile:
         form:
             name: profile
+    change_password:
+        form:
+            name: changePassword
 ```
 
 ### Step 5: Import routing files

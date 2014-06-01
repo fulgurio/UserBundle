@@ -26,6 +26,7 @@ profile:
     edit: Editer
     unsubscribe: Se désinscrire
     back: Retour
+change_password: Changer le mot de passe
 unsubscribe:
     unsubscribe: Se désinscrire
     confirmation_text: Etes vous sûr de vouloir vous désinscrire ?
