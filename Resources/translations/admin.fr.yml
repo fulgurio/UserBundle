@@ -1,10 +1,10 @@
 pagination:
-    first_page:               Première page
-    last_page:                Dernière page
-    current:                  Page actuelle
-    previous_page:            Page précédente
-    next_page:                Page suivante
-    no_result:                Aucun résultat trouvé
+    first_page:           Première page
+    last_page:            Dernière page
+    current:              Page actuelle
+    previous_page:        Page précédente
+    next_page:            Page suivante
+    no_result:            Aucun résultat trouvé
 popup_confirmation:
     title:                Confirmation
 admin_interface:          Administration
@@ -17,6 +17,12 @@ edit:                     Modifier
 delete:                   Supprimer
 delete_confirm_message:   Etes-vous sûr de vouloir supprimer l'utilisateur "%TITLE%" ?
 delete_success_message:   Utilisateur effacé !
+ban:                      Bannir
+ban_confirm_message:      Etes-vous sûr de vouloir bannir l'utilisateur "%TITLE%" ?
+ban_success_message:      Utilisateur banni !
+unban:                    Dé-bannir
+unban_confirm_message:    Etes-vous sûr de vouloir dé-bannir l'utilisateur "%TITLE%" ?
+unban_success_message:    Utilisateur débanni !
 cancel:                   Annuler
 save:                     Enregistrer
 search:                   Rechercher

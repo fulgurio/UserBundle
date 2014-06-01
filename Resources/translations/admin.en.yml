@@ -1,22 +1,28 @@
 pagination:
-    first_page:               First page
-    last_page:                Last page
-    current:                  Current
-    previous_page:            Previous page
-    next_page:                Next page
-    no_result:                No result found
+    first_page:           First page
+    last_page:            Last page
+    current:              Current
+    previous_page:        Previous page
+    next_page:            Next page
+    no_result:            No result found
 popup_confirmation:
     title:                Confirmation
 admin_interface:          Administration
 dashboard:                Dashboard
-users_manager:            Gestion des utilisateurs
+users_manager:            Users manager
 no_user:                  No user
 no_user_found:            No user found for "%QUERY%" search
-add_user:                 Ajouter un utilisateur
+add_user:                 Add a user
 edit:                     Edit
 delete:                   Delete
-delete_confirm_message:   Etes-vous sûr de vouloir supprimer l'utilisateur "%TITLE%" ?
+delete_confirm_message:   Are you sure to delete "%TITLE%" user ?
 delete_success_message:   User has been removed !
+ban:                      Ban
+ban_confirm_message:      Are you sure to ban "%TITLE%" user ?
+ban_success_message:      User has been banned !
+unban:                    Unban
+unban_confirm_message:    Are you sure to unban "%TITLE%" user ?
+unban_success_message:    User has been unbanned !
 cancel:                   Cancel
 save:                     Save
 search:                   Search
