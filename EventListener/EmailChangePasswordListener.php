@@ -19,7 +19,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class EmailChangePasswordListener implements EventSubscriberInterface
 {
+    /**
+     * @var type FOS\UserBundle\Mailer\MailerInterface
+     */
     private $mailer;
+
 
     /**
      * Constructor
@@ -34,7 +38,7 @@ class EmailChangePasswordListener implements EventSubscriberInterface
     /**
      * Add events
      *
-     * @return type
+     * @return array
      */
     public static function getSubscribedEvents()
     {
