@@ -1,0 +1,5 @@
+services:
+    fulgurio_user.namer_slugify:
+        class: Fulgurio\UserBundle\Naming\SlugifyNamer
+    fulgurio_user.directory_namer:
+        class: Fulgurio\UserBundle\Naming\DirectoryNamer

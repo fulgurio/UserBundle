@@ -48,23 +48,22 @@ class TwigExtension extends \Twig_Extension {
      * Display avatar user
      *
      * @param Fulgurio\UserBundle\Entity\User $user
-     * @param string $css
      *
      * @return string
      */
-    public function avatar(User $user, $css = '')
+    public function avatar(User $user)
     {
         if ($user->getAvatar() != '')
         {
-            $avatar = $user->getAvatarWebPath();
+            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+            return $helper->asset($user, 'avatarFile');
         }
         else
         {
-            $avatar = $this->container
+            return $this->container
                     ->get('templating.helper.assets')
                     ->getUrl($this->container->getParameter('fulgurio_user.avatar.default_avatar'));
         }
-        return '<img src="' . $avatar . '" alt="' . $user->getUsername() .'"' . $css . ' />';
     }
 
     /**

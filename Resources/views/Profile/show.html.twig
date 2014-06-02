@@ -4,7 +4,7 @@
 		<div>
 			<h1>{% trans %}profile.profile{% endtrans %}</h1>
 {% if isAvatarEnabled() %}
-			<div class="pull-left">{{ avatar(user) }}</div>
+			<div class="pull-left"><img src="{{ avatar(user) }}" alt="{{ user.username }}"/></div>
 {% endif %}
 			<p>{% trans from 'FOSUserBundle' %}profile.show.username{% endtrans %}: {{ user.username }}</p>
 			<p>{% trans from 'FOSUserBundle' %}profile.show.email{% endtrans %}: {{ user.email }}</p>

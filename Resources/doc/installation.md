@@ -132,6 +132,7 @@ fos_user:
     profile:
         form:
             name: profile
+            type: fulgurio_user_profile
     change_password:
         form:
             name: changePassword
@@ -209,4 +210,36 @@ fos_user:
     registration:
         confirmation:
             enabled:  false
+```
+
+### Avatar
+If you want to add avatar for each user, you need to edit some config files.
+Note : FulgurioUserBundle use the VichUploaderBundle
+
+Enable the bundle in the kernel:
+
+``` php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new Vich\UploaderBundle\VichUploaderBundle()
+```
+
+``` yaml
+# app/config/config.yml
+fulgurio_user:
+    avatar:
+        enabled: true
+vich_uploader:
+    db_driver: orm # or mongodb or propel
+    mappings:
+        avatar_image:
+            uri_prefix: /uploads
+            upload_destination: %kernel.root_dir%/../web/uploads
+            namer:              fulgurio_user.namer_slugify
+            directory_namer:    fulgurio_user.directory_namer
 ```

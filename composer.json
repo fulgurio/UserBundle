@@ -21,6 +21,7 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
-        "liip/functional-test-bundle": "dev-master"
+        "liip/functional-test-bundle": "dev-master",
+        "vich/uploader-bundle": "dev-master"
     }
 }
