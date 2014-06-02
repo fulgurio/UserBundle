@@ -4,6 +4,7 @@ form:
     email.or.username: Email or username
     username: Username
     email: Email
+    avatar: Avatar
     confirmation:
         yes: yes
         no: no

@@ -23,3 +23,13 @@ services:
                 enabled:
                     unsubscribe:     %fulgurio_user.unsubscribe.email.enabled%
                     ban:             %fulgurio_user.ban.email.enabled%
+    fulgurio_user.twig.extension:
+        class: Fulgurio\UserBundle\Extension\TwigExtension
+        arguments: [ "@service_container" ]
+        tags:
+            -  { name: twig.extension }
+    fulgurio_user.profile.form.type:
+        class: Fulgurio\UserBundle\Form\Type\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: fulgurio_user_profile }

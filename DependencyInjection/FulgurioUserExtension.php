@@ -32,18 +32,10 @@ class FulgurioUserExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        if (!empty($config['change_password']))
-        {
-            $this->loadChangePassword($config['change_password'], $container, $loader, $config['from_email']);
-        }
-        if (!empty($config['unsubscribe']))
-        {
-            $this->loadUnsubscribe($config['unsubscribe'], $container, $loader, $config['from_email']);
-        }
-        if (!empty($config['ban']))
-        {
-            $this->loadBan($config, $container, $loader, $config['from_email']);
-        }
+        $this->loadChangePassword($config['change_password'], $container, $loader, $config['from_email']);
+        $this->loadUnsubscribe($config['unsubscribe'], $container, $loader, $config['from_email']);
+        $this->loadBan($config, $container, $loader, $config['from_email']);
+        $this->loadAvatar($config['avatar'], $container, $loader);
     }
 
     /**
@@ -108,5 +100,20 @@ class FulgurioUserExtension extends Extension
         $container->setParameter('fulgurio_user.ban.email.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
         $container->setParameter('fulgurio_user.ban.email.template', $config['ban']['email']['template']);
         $container->setParameter('fulgurio_user.unban.email.template', $config['unban']['email']['template']);
+    }
+
+    /**
+     * Avatar configuration
+     *
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $loader
+     * @param array $fromEmail
+     */
+    private function loadAvatar(array $config, ContainerBuilder $container, YamlFileLoader $loader)
+    {
+        $container->setParameter('fulgurio_user.avatar.enabled', $config['enabled']);
+        $container->setParameter('fulgurio_user.avatar.default_avatar', $config['defaultAvatar']);
+        $container->setParameter('fulgurio_user.avatar.size', $config['size']);
     }
 }

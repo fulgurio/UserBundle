@@ -3,10 +3,11 @@
 {% block content %}
 		<div>
 			<h1>{% trans %}profile.profile{% endtrans %}</h1>
-			<form action="{{ path('fos_user_profile_edit') }}" method="post" class="form-horizontal" role="form">
+			<form action="{{ path('fos_user_profile_edit') }}" method="post" class="form-horizontal" role="form" {{ form_enctype(form) }}>
 {% if form.email.vars.errors|length
 	 or form.username.vars.errors|length
 	 or form.current_password.vars.errors|length
+	 or (isAvatarEnabled() and form.avatarFile.vars.errors|length)
 	 or form.vars.errors|length %}
 				<div class="alert alert-danger">
 					<p>{% trans %}form.error{% endtrans %} :</p>
@@ -14,6 +15,7 @@
 {% for error in form.email.vars.errors %}<li>{{error.message}}</li>{% endfor %}
 {% for error in form.username.vars.errors %}<li>{{error.message}}</li>{% endfor %}
 {% for error in form.current_password.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% if isAvatarEnabled() %}{% for error in form.avatarFile.vars.errors %}<li>{{error.message}}</li>{% endfor %}{% endif %}
 {% for error in form.vars.errors %}<li>{{error.message}}</li>{% endfor %}
 					</ul>
 				</div>
@@ -33,9 +35,17 @@
 				<div class="form-group">
 					<label for="password" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.current_password{% endtrans %}</label>
 					<div class="col-md-9">
-						<input type="password" class="form-control" id="password" name="{{form.current_password.vars.full_name}}" autocomplete="off" required>
+						<input type="password" class="form-control" id="password" name="{{form.current_password.vars.full_name}}" autocomplete="off">
 					</div>
 				</div>
+{% if isAvatarEnabled() %}
+				<div class="form-group">
+					<label for="avatar" class="col-md-3 control-label">{% trans %}form.avatar{% endtrans %} :</label>
+					<div class="col-md-9">
+						<input type="file" name="{{form.avatarFile.vars.full_name}}" id="avatar">
+					</div>
+				</div>
+{% endif %}
 				<div class="form-group submit">
 					<div class="col-md-offset-3 col-md-9">
 						<input type="hidden" name="{{form._token.vars.full_name}}" value="{{form._token.vars.value}}" />

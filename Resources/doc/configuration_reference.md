@@ -33,6 +33,12 @@ fulgurio_user:
     unban:
         email:
             template: FulgurioUserBundle:Admin:email_unban.html.twig
+    avatar:
+        enabled: false
+        defaultAvatar: bundles/fulguriouser/images/avatar.png
+        size:
+            width: 50
+            height: 50
 
 ```
 

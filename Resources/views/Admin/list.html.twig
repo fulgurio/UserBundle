@@ -17,10 +17,6 @@
 {% else %}
 			<div class="row">
 {% endif %}
-{#				<div class="col-lg-6">
-					<a class="btn pull-right" href="{{ path('fulgurio_user_usermanager_add') }}">{% trans from 'admin' %}add_user{% endtrans %}</a>
-				</div>
-#}
 			</div>
 {% if users is empty %}
 {%   if app.request.get('q') %}
@@ -32,30 +28,35 @@
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
+{%   if isAvatarEnabled() %}
+						<th></th>
+{%   endif %}
 						<th>{{ knp_pagination_sortable(users, 'form.username'|trans, 'u.username')|raw }}</th>
 						<th>{{ knp_pagination_sortable(users, 'form.email'|trans, 'u.email')|raw }}</th>
 						<th>{#Options#}</th>
 					</tr>
 				</thead>
 				<tbody>
-{% for user in users %}
+{%   for user in users %}
 					<tr>
+{%   if isAvatarEnabled() %}
+						<td>{{ avatar(user) }}</td>
+{%   endif %}
 						<td>{{ user.username }}</td>
 						<td>{{ user.email }}</td>
 						<td>
-{#							<a href="{{ path('fulgurio_user_usermanager_edit', {userId: user.id}) }}" title="{% trans from 'admin' %}edit{% endtrans %}"><span class="glyphicon glyphicon-edit"></span></a>#}
-{% if user.enabled %}
-{%   if not user.isPasswordRequestNonExpired(changePasswordTTL) %}
+{%     if user.enabled %}
+{%       if not user.isPasswordRequestNonExpired(changePasswordTTL) %}
 							<a href="{{ path('fulgurio_user_usermanager_resetpassword', {userId: user.id}) }}" title="{% trans from 'admin' %}reset_password{% endtrans %}" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-refresh"></span></a>
-{%   endif %}
+{%       endif %}
 							<a href="{{ path('fulgurio_user_usermanager_ban', {userId: user.id}) }}" title="{% trans from 'admin' %}ban.ban{% endtrans %}" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>
-{% else %}
+{%     else %}
 							<a href="{{ path('fulgurio_user_usermanager_unban', {userId: user.id}) }}" title="{% trans from 'admin' %}unban.unban{% endtrans %}" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-circle-arrow-down"></span></a>
-{% endif %}
+{%     endif %}
 							<a href="{{ path('fulgurio_user_usermanager_remove', {userId: user.id}) }}" title="{% trans from 'admin' %}delete{% endtrans %}" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove-circle"></span></a>
 						</td>
 					</tr>
-{% endfor %}
+{%   endfor %}
 				</tbody>
 			</table>
 {{ knp_pagination_render(users, 'FulgurioUserBundle:Admin:pagination.html.twig')|raw }}

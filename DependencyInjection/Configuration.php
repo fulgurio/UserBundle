@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
         $this->addChangePasswordSection($rootNode);
         $this->addUnsubscribeSection($rootNode);
         $this->addBanSection($rootNode);
+        $this->addAvatarSection($rootNode);
         return $treeBuilder;
     }
 
@@ -144,6 +145,33 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('template')->defaultValue('FulgurioUserBundle:Admin:email_unban.html.twig')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * Avatar configuration
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     */
+    private function addAvatarSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('avatar')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->booleanNode('enabled')->defaultFalse()->end()
+                        ->scalarNode('defaultAvatar')->defaultValue('bundles/fulguriouser/images/avatar.png')->end()
+                        ->arrayNode('size')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->integerNode('width')->defaultValue(50)->end()
+                                ->integerNode('height')->defaultValue(50)->end()
                             ->end()
                         ->end()
                     ->end()

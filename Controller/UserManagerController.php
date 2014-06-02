@@ -51,7 +51,7 @@ class UserManagerController extends Controller
     public function removeAction($userId)
     {
         $user = $this->getSpecifiedUser($userId);
-        $request = $this->container->get('request');
+        $request = $this->get('request');
         if ($request->get('confirm') === 'yes')
         {
             $em = $this->getDoctrine()->getManager();
@@ -80,7 +80,7 @@ class UserManagerController extends Controller
     public function banAction($userId)
     {
         $user = $this->getSpecifiedUser($userId);
-        $request = $this->container->get('request');
+        $request = $this->get('request');
         if ($request->get('confirm') === 'yes')
         {
             $user->setEnabled(FALSE);
@@ -108,7 +108,7 @@ class UserManagerController extends Controller
     public function unbanAction($userId)
     {
         $user = $this->getSpecifiedUser($userId);
-        $request = $this->container->get('request');
+        $request = $this->get('request');
         if ($request->get('confirm') === 'yes')
         {
             $user->setEnabled(TRUE);
@@ -147,8 +147,7 @@ class UserManagerController extends Controller
             // An email has been send for password resetting. You can not access to this URL without cheating
             throw new AccessDeniedException();
         }
-
-        $request = $this->container->get('request');
+        $request = $this->get('request');
         if ($request->get('confirm') === 'yes')
         {
             if (null === $user->getConfirmationToken()) {

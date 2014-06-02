@@ -3,6 +3,9 @@
 {% block content %}
 		<div>
 			<h1>{% trans %}profile.profile{% endtrans %}</h1>
+{% if isAvatarEnabled() %}
+			<div class="pull-left">{{ avatar(user) }}</div>
+{% endif %}
 			<p>{% trans from 'FOSUserBundle' %}profile.show.username{% endtrans %}: {{ user.username }}</p>
 			<p>{% trans from 'FOSUserBundle' %}profile.show.email{% endtrans %}: {{ user.email }}</p>
 			<div><a href="{{ path('fos_user_profile_edit') }}">{% trans %}profile.edit{% endtrans %}</a></div>
