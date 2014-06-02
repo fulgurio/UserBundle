@@ -17,12 +17,6 @@ use Symfony\Component\DependencyInjection\Container;
  */
 class TwigExtension extends \Twig_Extension {
     /**
-     *
-     * @var string
-     */
-    private $defaultAvatar;
-
-    /**
      * @var Symfony\Component\DependencyInjection\Container
      */
     private $container;
@@ -36,17 +30,6 @@ class TwigExtension extends \Twig_Extension {
     public function __construct(Container $container)
     {
         $this->container = $container;
-    }
-
-    /**
-     *
-     * @param \Twig_Environment $environment
-     */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->defaultAvatar = $environment
-                ->getExtension('assets')
-                ->getAssetUrl($this->container->getParameter('fulgurio_user.avatar.default_avatar'));
     }
 
     /**
@@ -71,7 +54,16 @@ class TwigExtension extends \Twig_Extension {
      */
     public function avatar(User $user, $css = '')
     {
-        $avatar = $user->getAvatar() != '' ? $user->getAvatarWebPath() : $this->defaultAvatar;
+        if ($user->getAvatar() != '')
+        {
+            $avatar = $user->getAvatarWebPath();
+        }
+        else
+        {
+            $avatar = $this->container
+                    ->get('templating.helper.assets')
+                    ->getUrl($this->container->getParameter('fulgurio_user.avatar.default_avatar'));
+        }
         return '<img src="' . $avatar . '" alt="' . $user->getUsername() .'"' . $css . ' />';
     }
 
