@@ -6,7 +6,10 @@
 			<form action="{{ path('fos_user_profile_edit') }}" method="post" class="form-horizontal" role="form" {{ form_enctype(form) }}>
 {% if form.email.vars.errors|length
 	 or form.username.vars.errors|length
-	 or form.current_password.vars.errors|length
+	 or (isProfileWithPasswordEdition() and (
+		form.current_password.vars.errors|length
+		 or form.plainPassword.first.vars.errors|length)
+	)
 	 or (isAvatarEnabled() and form.avatarFile.vars.errors|length)
 	 or form.vars.errors|length %}
 				<div class="alert alert-danger">
@@ -14,7 +17,10 @@
 					<ul>
 {% for error in form.email.vars.errors %}<li>{{error.message}}</li>{% endfor %}
 {% for error in form.username.vars.errors %}<li>{{error.message}}</li>{% endfor %}
-{% for error in form.current_password.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% if isProfileWithPasswordEdition() %}
+{%   for error in form.current_password.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{%   for error in form.plainPassword.first.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% endif %}
 {% if isAvatarEnabled() %}{% for error in form.avatarFile.vars.errors %}<li>{{error.message}}</li>{% endfor %}{% endif %}
 {% for error in form.vars.errors %}<li>{{error.message}}</li>{% endfor %}
 					</ul>
@@ -32,12 +38,26 @@
 						<input type="text" class="form-control" id="username" name="{{form.username.vars.full_name}}" value="{{form.username.vars.value}}" autocomplete="off" required>
 					</div>
 				</div>
+{% if isProfileWithPasswordEdition() %}
 				<div class="form-group">
 					<label for="password" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.current_password{% endtrans %}</label>
 					<div class="col-md-9">
 						<input type="password" class="form-control" id="password" name="{{form.current_password.vars.full_name}}" autocomplete="off">
 					</div>
 				</div>
+				<div class="form-group">
+					<label for="password" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.password{% endtrans %}</label>
+					<div class="col-md-9">
+						<input type="password" class="form-control" id="password" name="{{form.plainPassword.first.vars.full_name}}" autocomplete="off">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password2" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.password_confirmation{% endtrans %}</label>
+					<div class="col-md-9">
+						<input type="password" class="form-control" id="password2" name="{{form.plainPassword.second.vars.full_name}}" autocomplete="off">
+					</div>
+				</div>
+{% endif %}
 {% if isAvatarEnabled() %}
 				<div class="form-group">
 					<label for="avatar" class="col-md-3 control-label">{% trans %}form.avatar{% endtrans %} :</label>

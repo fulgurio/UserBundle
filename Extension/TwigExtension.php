@@ -41,6 +41,7 @@ class TwigExtension extends \Twig_Extension {
         return array(
             'avatar' =>             new \Twig_Function_Method($this, 'avatar', array('is_safe' => array('html'))),
             'isAvatarEnabled' =>    new \Twig_Function_Method($this, 'isAvatarEnabled'),
+            'isProfileWithPasswordEdition' =>    new \Twig_Function_Method($this, 'isProfileWithPasswordEdition'),
         );
     }
 
@@ -75,6 +76,17 @@ class TwigExtension extends \Twig_Extension {
     {
         return $this->container->getParameter('fulgurio_user.avatar.enabled');
     }
+
+    /**
+     * Check in config if we allows password edition in profile page
+     *
+     * @return boolean
+     */
+    public function isProfileWithPasswordEdition()
+    {
+        return $this->container->getParameter('fos_user.profile.form.type') == 'fulgurio_user_profile_with_password_edition';
+    }
+
 
     /**
      * (non-PHPdoc)

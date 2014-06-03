@@ -33,3 +33,8 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: fulgurio_user_profile }
+    fulgurio_user.profile_with_password_edition.form.type:
+        class: Fulgurio\UserBundle\Form\Type\ProfileWithPasswordEditionFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: fulgurio_user_profile_with_password_edition }

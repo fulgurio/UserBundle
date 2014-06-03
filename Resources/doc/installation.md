@@ -185,10 +185,7 @@ $ php app/console doctrine:schema:update --force
 ```
 
 
-
-## Availables features
-
-### Email sender
+### Step 7: Email sender
 
 You can (must) set the email sender, just change config.yml as folow :
 
@@ -200,7 +197,7 @@ fos_user:
         sender_name:    No replay
 ```
 
-### Registering
+### Optional : validate registering by email
 
 You can valid a user account by sending an email with a link to valid
 subscription. Just change the config.yml as following :
@@ -212,34 +209,14 @@ fos_user:
             enabled:  false
 ```
 
-### Avatar
-If you want to add avatar for each user, you need to edit some config files.
-Note : FulgurioUserBundle use the VichUploaderBundle
 
-Enable the bundle in the kernel:
 
-``` php
-<?php
-// app/AppKernel.php
+### Next Steps
+There s some new features that don't exist into FOSUserBundle. Here there are :
 
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new Vich\UploaderBundle\VichUploaderBundle()
-```
+- [Enable avatar](enable_avatar.md)
+- [Edit password into profile](edit_password_into_profile.md)
 
-``` yaml
-# app/config/config.yml
-fulgurio_user:
-    avatar:
-        enabled: true
-vich_uploader:
-    db_driver: orm # or mongodb or propel
-    mappings:
-        avatar_image:
-            uri_prefix: /uploads
-            upload_destination: %kernel.root_dir%/../web/uploads
-            namer:              fulgurio_user.namer_slugify
-            directory_namer:    fulgurio_user.directory_namer
-```
+
+
+

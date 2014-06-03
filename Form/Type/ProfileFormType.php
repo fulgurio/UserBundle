@@ -25,7 +25,7 @@ class ProfileFormType extends BaseProfileFormType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
+        $this->buildUserForm($builder, $options);
         $builder->add('avatarFile', 'file');
     }
 
