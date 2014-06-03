@@ -210,10 +210,10 @@ fos_user:
 ```
 
 
-
 ### Next Steps
 There s some new features that don't exist into FOSUserBundle. Here there are :
 
+- [One single password field on registration](one_single_password_field_on_registration.md)
 - [Enable avatar](enable_avatar.md)
 - [Edit password into profile](edit_password_into_profile.md)
 

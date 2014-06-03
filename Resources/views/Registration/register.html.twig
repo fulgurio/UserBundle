@@ -31,14 +31,19 @@
 						<form action="{{ path('fos_user_registration_register') }}" method="post" class="form-horizontal" role="form">
 {% if form.email.vars.errors|length
 	 or form.username.vars.errors|length
-	 or form.plainPassword.first.vars.errors|length
+	 or (useOnePasswordFieldForRegistration() and form.plainPassword.vars.errors|length)
+	 or (not useOnePasswordFieldForRegistration() and form.plainPassword.first.vars.errors|length)
 	 or form.vars.errors|length %}
 							<div class="alert alert-danger">
 								<p>{% trans %}form.error{% endtrans %} :</p>
 								<ul>
 {% for error in form.email.vars.errors %}<li>{{error.message}}</li>{% endfor %}
 {% for error in form.username.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% if useOnePasswordFieldForRegistration()%}
+{% for error in form.plainPassword.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% else %}
 {% for error in form.plainPassword.first.vars.errors %}<li>{{error.message}}</li>{% endfor %}
+{% endif %}
 {% for error in form.vars.errors %}<li>{{error.message}}</li>{% endfor %}
 								</ul>
 							</div>
@@ -55,6 +60,14 @@
 									<input type="text" class="form-control" id="username" name="{{form.username.vars.full_name}}" value="{{form.username.vars.value}}" placeholder="{% trans %}form.username{% endtrans %}" autocomplete="off" required>
 								</div>
 							</div>
+{% if useOnePasswordFieldForRegistration() %}
+							<div class="form-group">
+								<label for="password" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.password{% endtrans %}</label>
+								<div class="col-md-9">
+									<input type="password" class="form-control" id="password" name="{{form.plainPassword.vars.full_name}}" placeholder="{% trans from 'FOSUserBundle' %}form.password{% endtrans %}" autocomplete="off" required>
+								</div>
+							</div>
+{% else %}
 							<div class="form-group">
 								<label for="password" class="col-md-3 control-label">{% trans from 'FOSUserBundle' %}form.password{% endtrans %}</label>
 								<div class="col-md-9">
@@ -67,6 +80,7 @@
 									<input type="password" class="form-control" id="password2" name="{{form.plainPassword.second.vars.full_name}}" placeholder="{% trans from 'FOSUserBundle' %}form.password_confirmation{% endtrans %}" autocomplete="off" required>
 								</div>
 							</div>
+{% endif %}
 							<div class="form-group submit">
 								<div class="col-md-offset-3 col-md-9">
 									<input type="hidden" name="{{form._token.vars.full_name}}" value="{{form._token.vars.value}}" />
