@@ -82,6 +82,12 @@ class User extends BaseUser
     public function setAvatarFile(UploadedFile $avatarFile)
     {
         $this->avatarFile = $avatarFile;
+        // Because we need an update of User object when form submit a file,
+        // we make a fake update of $avatar
+        if ($avatarFile)
+        {
+            $this->setAvatar(time());
+        }
         return $this;
     }
 

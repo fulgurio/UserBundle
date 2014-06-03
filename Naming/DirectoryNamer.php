@@ -19,8 +19,6 @@ use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
  */
 class DirectoryNamer implements DirectoryNamerInterface
 {
-    const NB_CHAR_TO_SPLIT = 3;
-
     /**
      * Creates a directory name for the file being uploaded.
      *
