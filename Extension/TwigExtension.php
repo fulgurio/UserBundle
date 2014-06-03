@@ -42,6 +42,7 @@ class TwigExtension extends \Twig_Extension {
             'avatar' =>             new \Twig_Function_Method($this, 'avatar', array('is_safe' => array('html'))),
             'isAvatarEnabled' =>    new \Twig_Function_Method($this, 'isAvatarEnabled'),
             'isProfileWithPasswordEdition' =>    new \Twig_Function_Method($this, 'isProfileWithPasswordEdition'),
+            'useOnePasswordFieldForRegistration' => new \Twig_Function_Method($this, 'useOnePasswordFieldForRegistration')
         );
     }
 
@@ -87,6 +88,15 @@ class TwigExtension extends \Twig_Extension {
         return $this->container->getParameter('fos_user.profile.form.type') == 'fulgurio_user_profile_with_password_edition';
     }
 
+    /**
+     * Check if you will use one field for password (without repeat)
+     *
+     * @return boolean
+     */
+    public function useOnePasswordFieldForRegistration()
+    {
+        return $this->container->getParameter('fos_user.registration.form.type') == 'fulgurio_user_registration';
+    }
 
     /**
      * (non-PHPdoc)

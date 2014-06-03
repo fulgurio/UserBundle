@@ -50,6 +50,11 @@ security:
                 users:
                     admin: { password: admin, roles: [ 'ROLE_ADMIN' ] }
 
+fos_user:
+    registration:
+        form:
+            type: fos_user_registration
+
 fulgurio_user:
     from_email:
         address: test@example.com
