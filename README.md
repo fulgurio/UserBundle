@@ -12,7 +12,9 @@ Documentation
 The bulk of the documentation is stored in the `Resources/doc/index.md`
 file in this bundle:
 
-[All about installation](https://github.com/fulgurio/FulgurioUserBundle/blob/master/Resources/doc/installation.md)
-[Configuration reference](https://github.com/fulgurio/FulgurioUserBundle/blob/master/Resources/doc/configuration_reference.md)
-[If you need to check functionals tests](https://github.com/fulgurio/FulgurioUserBundle/blob/master/Resources/doc/tests.md)
+[All about installation](Resources/doc/installation.md)
+
+[Configuration reference](Resources/doc/configuration_reference.md)
+
+[If you need to check functionals tests](Resources/doc/tests.md)
 
