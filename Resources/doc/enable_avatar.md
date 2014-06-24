@@ -5,7 +5,8 @@ It's possible to use an avatar for each user. Just follows these steps:
 
 ### Enable the bundle
 
-FulgurioUserBundle use the VichUploaderBundle, it's available in composer, so just register the bundle into the kernel :
+FulgurioUserBundle use the VichUploaderBundle, it's available in composer, so
+just register the bundle into the kernel :
 
 ``` php
 <?php
@@ -56,3 +57,12 @@ fulgurio_image_handler:
 
 Available actions are "resize" or "crop". You can change the size of the avatar.
 By default, avatar will be cropped to 100x100 size.
+
+
+Gravatar is a good service to associate an avatar to an email. You can use this
+service by replacing the User class with the UserGravatar class.
+``` yaml
+# app/config/config.yml
+fos_user:
+    user_class: Fulgurio\UserBundle\Entity\UserGravatar
+```

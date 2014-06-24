@@ -10,6 +10,7 @@
 namespace Fulgurio\UserBundle\Extension;
 
 use FOS\UserBundle\Model\UserInterface;
+use Fulgurio\UserBundle\Entity\UserGravatar;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -57,8 +58,16 @@ class TwigExtension extends \Twig_Extension {
     {
         if ($user->getAvatar() != '')
         {
-            $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-            return $helper->asset($user, 'avatarFile');
+            if (is_a($user, 'Fulgurio\UserBundle\Entity\UserGravatar')
+                    && substr($user->getAvatar(), 0, strlen(UserGravatar::GRAVATAR)) == UserGravatar::GRAVATAR)
+            {
+                return $user->getAvatar();
+            }
+            else
+            {
+                $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+                return $helper->asset($user, 'avatarFile');
+            }
         }
         else
         {
