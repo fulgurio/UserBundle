@@ -167,16 +167,8 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->booleanNode('enabled')->defaultFalse()->end()
                         ->scalarNode('defaultAvatar')->defaultValue('bundles/fulguriouser/images/avatar.png')->end()
-                        ->arrayNode('size')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->integerNode('width')->defaultValue(50)->end()
-                                ->integerNode('height')->defaultValue(50)->end()
-                            ->end()
-                        ->end()
                     ->end()
                 ->end()
             ->end();
     }
-
 }

@@ -41,3 +41,18 @@ vich_uploader:
 You can enable or disable avatar with fulgurio_user.avatar.enabled
 Files will be dispatched in a directory for each user.
 
+There's some availables settings to resize or crop the avatar, just add these
+line into config file
+
+``` yaml
+# app/config/config.yml
+fulgurio_image_handler:
+    mappings:
+        avatar_image:
+            action: crop
+            width: 400
+            height: 400
+```
+
+Available actions are "resize" or "crop". You can change the size of the avatar.
+By default, avatar will be cropped to 100x100 size.

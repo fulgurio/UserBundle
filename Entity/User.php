@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Fulgurio\ImageHandlerBundle\Annotation as ImageAnnotation;
 
 /**
  * Description of User
@@ -26,7 +27,9 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=64, nullable=true)
+     * @ORM\Column(type="string", length=128, nullable=true)
+     *
+     * @ImageAnnotation\ImageHandle(mapping="avatar_image", action="crop", width=100, height=100)
      */
     private $avatar;
 
@@ -62,7 +65,6 @@ class User extends BaseUser
     {
         return $this->avatar;
     }
-
 
     /**
      * @var Symfony\Component\HttpFoundation\File\UploadedFile

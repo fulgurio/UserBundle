@@ -113,8 +113,10 @@ class FulgurioUserExtension extends Extension
     private function loadAvatar(array $config, ContainerBuilder $container, YamlFileLoader $loader)
     {
         $container->setParameter('fulgurio_user.avatar.enabled', $config['enabled']);
-        $container->setParameter('fulgurio_user.avatar.default_avatar', $config['defaultAvatar']);
-        $container->setParameter('fulgurio_user.avatar.size', $config['size']);
-        $loader->load('naming.yml');
+        if ($config['enabled'])
+        {
+            $container->setParameter('fulgurio_user.avatar.default_avatar', $config['defaultAvatar']);
+            $loader->load('naming.yml');
+        }
     }
 }

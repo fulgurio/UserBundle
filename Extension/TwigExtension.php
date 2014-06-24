@@ -9,7 +9,7 @@
  */
 namespace Fulgurio\UserBundle\Extension;
 
-use Fulgurio\UserBundle\Entity\User;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -49,11 +49,11 @@ class TwigExtension extends \Twig_Extension {
     /**
      * Display avatar user
      *
-     * @param Fulgurio\UserBundle\Entity\User $user
+     * @param FOS\UserBundle\Model\UserInterface $user
      *
      * @return string
      */
-    public function avatar(User $user)
+    public function avatar(UserInterface $user)
     {
         if ($user->getAvatar() != '')
         {
