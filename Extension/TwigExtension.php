@@ -10,7 +10,6 @@
 namespace Fulgurio\UserBundle\Extension;
 
 use FOS\UserBundle\Model\UserInterface;
-use Fulgurio\UserBundle\Entity\UserGravatar;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -44,7 +43,8 @@ class TwigExtension extends \Twig_Extension {
             'isAvatarEnabled' =>    new \Twig_Function_Method($this, 'isAvatarEnabled'),
             'getDefaultAvatar' =>    new \Twig_Function_Method($this, 'getDefaultAvatar'),
             'isProfileWithPasswordEdition' =>    new \Twig_Function_Method($this, 'isProfileWithPasswordEdition'),
-            'useOnePasswordFieldForRegistration' => new \Twig_Function_Method($this, 'useOnePasswordFieldForRegistration')
+            'useOnePasswordFieldForRegistration' => new \Twig_Function_Method($this, 'useOnePasswordFieldForRegistration'),
+            'isOAuthServiceEnabled' =>    new \Twig_Function_Method($this, 'isOAuthServiceEnabled')
         );
     }
 
@@ -59,8 +59,8 @@ class TwigExtension extends \Twig_Extension {
     {
         if ($user->getAvatar() != '')
         {
-            if (is_a($user, 'Fulgurio\UserBundle\Entity\UserGravatar')
-                    && substr($user->getAvatar(), 0, strlen(UserGravatar::GRAVATAR)) == UserGravatar::GRAVATAR)
+            if (substr($user->getAvatar(), 0, 7) == 'http://'
+                    || substr($user->getAvatar(), 0, 8) == 'https://')
             {
                 return $user->getAvatar();
             }
@@ -116,6 +116,17 @@ class TwigExtension extends \Twig_Extension {
     public function useOnePasswordFieldForRegistration()
     {
         return $this->container->getParameter('fos_user.registration.form.type') == 'fulgurio_user_registration';
+    }
+
+    /**
+     * Check in config if facebook connector is configured
+     *
+     * @return boolean
+     */
+    public function isOAuthServiceEnabled($serviceName)
+    {
+        $services = $this->container->getParameter('hwi_oauth.resource_owners');
+        return is_array($services) && in_array($serviceName, $services);
     }
 
     /**

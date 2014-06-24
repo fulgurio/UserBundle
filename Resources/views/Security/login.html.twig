@@ -62,7 +62,9 @@
 								<div class="col-sm-12 controls">
 									<input type="hidden" name="login[csrf_token]" value="{{ csrf_token }}">
 									<button type="submit" class="btn btn-success">{% trans from 'FOSUserBundle' %}security.login.submit{% endtrans %}</button>
-{#								<a href="#" class="btn btn-primary">{% trans %}form.signin.facebook{% endtrans %}</a>#}
+{% if isOAuthServiceEnabled('facebook') %}
+									<a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" class="btn btn-primary">{% trans %}form.signin.facebook{% endtrans %}</a>
+{% endif %}
 								</div>
 							</div>
 							<div class="form-group signup">

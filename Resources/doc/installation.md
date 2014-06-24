@@ -102,7 +102,7 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 ```
 
-You access to administration by a htt_basic access with user "admin" : please
+You access to administration by a http_basic access with user "admin" : please
 do not forget to replace "adminpass" with your own password !
 
 ### Step 4: Configure the bundle
@@ -216,7 +216,3 @@ There s some new features that don't exist into FOSUserBundle. Here there are :
 - [One single password field on registration](one_single_password_field_on_registration.md)
 - [Enable avatar](enable_avatar.md)
 - [Edit password into profile](edit_password_into_profile.md)
-
-
-
-
