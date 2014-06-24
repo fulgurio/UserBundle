@@ -30,9 +30,10 @@ class UserManagerController extends Controller
      */
     public function listAction()
     {
+        $userClassName = $this->container->getParameter('fos_user.model.user.class');
         $em = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
-        $users= $em->getRepository('FulgurioUserBundle:User')
+        $users= $em->getRepository($userClassName)
                 ->findAllWithPaginator(
                         $paginator,
                         $this->get('request')->get('page', 1),

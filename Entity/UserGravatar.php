@@ -13,7 +13,7 @@ use Fulgurio\ImageHandlerBundle\Annotation as ImageAnnotation;
  *
  * @author Vincent GUERARD <v.guerard@fulgurio.net>
  *
- *         @ORM\Entity(repositoryClass="Fulgurio\UserBundle\Repository\UserRepository")
+ *         @ORM\Entity(repositoryClass="Fulgurio\UserBundle\Repository\UserGravatarRepository")
  *         @ORM\Table(name="fulgurio_user")
  *         @Vich\Uploadable
  */

@@ -15,6 +15,12 @@ use Doctrine\ORM\EntityRepository;
 class UserRepository extends EntityRepository
 {
     /**
+     * Class name of the returned entities
+     * @var string
+     */
+    protected $userEntityName = 'FulgurioUserBundle:User';
+
+    /**
      * Number of users per page
      *
      * @var number
@@ -32,13 +38,13 @@ class UserRepository extends EntityRepository
     {
         if (!is_null($filter) && trim($filter) != '')
         {
-            $query = $this->getEntityManager()->createQuery('SELECT u FROM FulgurioUserBundle:User u WHERE u.username LIKE :username OR u.email LIKE :email ORDER BY u.username ASC, u.email ASC');
+            $query = $this->getEntityManager()->createQuery('SELECT u FROM ' . $this->userEntityName .' u WHERE u.username LIKE :username OR u.email LIKE :email ORDER BY u.username ASC, u.email ASC');
             $query->setParameter('username', $filter . '%');
             $query->setParameter('email', $filter . '%');
         }
         else
         {
-            $query = $this->getEntityManager()->createQuery('SELECT u FROM FulgurioUserBundle:User u ORDER BY u.username ASC, u.email ASC');
+            $query = $this->getEntityManager()->createQuery('SELECT u FROM ' . $this->userEntityName .' u ORDER BY u.username ASC, u.email ASC');
         }
         return ($paginator->paginate($query, $page, self::NB_PER_PAGE));
     }
