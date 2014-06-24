@@ -55,6 +55,16 @@ class UserGravatar extends BaseUser
      */
     protected $googleAccessToken;
 
+    /**
+     * @ORM\Column(name="linkedin_id", type="string", length=255, nullable=true)
+     */
+    protected $linkedinId;
+
+    /**
+     * @ORM\Column(name="linkedin_access_token", type="string", length=255, nullable=true)
+     */
+    protected $linkedinAccessToken;
+
 
     /**
      * Get id
@@ -231,6 +241,52 @@ class UserGravatar extends BaseUser
     public function getGoogleAccessToken()
     {
         return $this->googleAccessToken;
+    }
+
+    /**
+     * Set linkedinId
+     *
+     * @param string $linkedinId
+     * @return User
+     */
+    public function setLinkedinId($linkedinId)
+    {
+        $this->linkedinId = $linkedinId;
+
+        return $this;
+    }
+
+    /**
+     * Get linkedinId
+     *
+     * @return string
+     */
+    public function getLinkedinId()
+    {
+        return $this->linkedinId;
+    }
+
+    /**
+     * Set linkedinAccessToken
+     *
+     * @param string $linkedinAccessToken
+     * @return User
+     */
+    public function setLinkedinAccessToken($linkedinAccessToken)
+    {
+        $this->linkedinAccessToken = $linkedinAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * Get linkedinAccessToken
+     *
+     * @return string
+     */
+    public function getLinkedinAccessToken()
+    {
+        return $this->linkedinAccessToken;
     }
 
 }

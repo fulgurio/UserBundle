@@ -13,6 +13,7 @@ form:
         forgot.password: Forgot password ?
         facebook: Login with Facebook
         google: Login with Google
+        linkedin: Login with LinkedIn
         have.no.account: Don't have an account ?
         sign.up.here: Sign Up Here !
     register:

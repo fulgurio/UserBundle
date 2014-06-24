@@ -68,6 +68,9 @@
 {% if isOAuthServiceEnabled('google') %}
 									<a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}" class="btn btn-primary">{% trans %}form.signin.google{% endtrans %}</a>
 {% endif %}
+{% if isOAuthServiceEnabled('linkedin') %}
+									<a href="{{ path('hwi_oauth_service_redirect', {'service': 'linkedin' }) }}" class="btn btn-primary">{% trans %}form.signin.linkedin{% endtrans %}</a>
+{% endif %}
 								</div>
 							</div>
 							<div class="form-group signup">
