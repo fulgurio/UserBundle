@@ -71,7 +71,14 @@ class FOSUBUserProvider extends BaseClass
                 $user->setUsername($response->getRealName());
                 $user->setEmail($response->getEmail());
                 $user->setPassword($username . time());
-                $user->setAvatar('http://graph.facebook.com/' . $username . '/picture');
+                if ($service == 'facebook')
+                {
+                    $user->setAvatar('http://graph.facebook.com/' . $username . '/picture');
+                }
+                else
+                {
+                    $user->setAvatar($response->getProfilePicture());
+                }
                 $user->setEnabled(true);
             }
             $user->$setter_id($username);

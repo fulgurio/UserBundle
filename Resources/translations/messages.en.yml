@@ -12,6 +12,7 @@ form:
         sign.in: Sign in
         forgot.password: Forgot password ?
         facebook: Login with Facebook
+        google: Login with Google
         have.no.account: Don't have an account ?
         sign.up.here: Sign Up Here !
     register:
