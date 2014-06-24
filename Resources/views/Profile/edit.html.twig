@@ -60,9 +60,14 @@
 {% endif %}
 {% if isAvatarEnabled() %}
 				<div class="form-group">
-					<label for="avatar" class="col-md-3 control-label">{% trans %}form.avatar{% endtrans %} :</label>
+					<label for="avatarFile" class="col-md-3 control-label">{% trans %}form.avatar{% endtrans %} :</label>
 					<div class="col-md-9">
-						<input type="file" name="{{form.avatarFile.vars.full_name}}" id="avatar">
+						<div>
+							<img src="{{ avatar(app.user) }}" id="avatarPicture">
+							<button type="button" id="removeAvatarPict"{% if form.avatar.vars.value == '' %} style="display:none"{% endif %}>{% trans %}profile.remove_picture{% endtrans %}</button>
+							<input type="hidden" id="avatar" name="{{form.avatar.vars.full_name}}" value="{{form.avatar.vars.value}}">
+						</div>
+						<input type="file" name="{{form.avatarFile.vars.full_name}}" id="avatarFile">
 					</div>
 				</div>
 {% endif %}
@@ -75,4 +80,45 @@
 				</div>
 			</form>
 		</div>
-{% endblock content %}
+{% endblock %}
+
+{% block bodyBottom %}
+    {% if isAvatarEnabled() %}
+        <script>
+            (function() {
+                var $avatarPicture = $("#avatarPicture");
+                var $removeAvatarPict = $("#removeAvatarPict");
+                var $avatarFile = $("#avatarFile")
+                $removeAvatarPict.click(function() {
+                    $("#avatar").val("");
+                    $avatarPicture.removeAttr("width")
+                            .removeAttr("height")
+                            .attr("src", "{{ asset(getDefaultAvatar()) }}");
+                    $avatarFile.val("");
+                });
+                $avatarFile.change(function(e) {
+                    var file = e.target.files[0];
+                    if ((typeof file.type !== "undefined" ? file.type.match(/^image\/(gif|png|jpeg)$/) : file.name.match(/\.(gif|png|jpe?g)$/i))
+                            && typeof FileReader !== "undefined") {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                        var image = new Image();
+                            image.src = e.target.result;
+                            image.onload = function() {
+                                if (this.width > this.height) { // Landscape
+                                    $avatarPicture.attr("width", "100px");
+                                }
+                                else { // Portrait
+                                    $avatarPicture.attr("height", "100px");
+                                }
+                                $avatarPicture.attr("src", this.src);
+                            };
+                        };
+                        reader.readAsDataURL(file);
+                        $removeAvatarPict.show();
+                    }
+                });
+            })();
+        </script>
+    {% endif %}
+{% endblock %}

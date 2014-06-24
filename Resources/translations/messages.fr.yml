@@ -27,6 +27,7 @@ profile:
     edit: Editer
     unsubscribe: Se désinscrire
     back: Retour
+    remove_picture: Supprimer l'image
 change_password:
     change_password: Changer le mot de passe
     email:

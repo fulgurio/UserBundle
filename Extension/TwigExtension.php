@@ -14,7 +14,7 @@ use Fulgurio\UserBundle\Entity\UserGravatar;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * @author Vincent GUERARd <v.guerard@fulgurio.net>
+ * @author Vincent GUERARD <v.guerard@fulgurio.net>
  */
 class TwigExtension extends \Twig_Extension {
     /**
@@ -42,6 +42,7 @@ class TwigExtension extends \Twig_Extension {
         return array(
             'avatar' =>             new \Twig_Function_Method($this, 'avatar', array('is_safe' => array('html'))),
             'isAvatarEnabled' =>    new \Twig_Function_Method($this, 'isAvatarEnabled'),
+            'getDefaultAvatar' =>    new \Twig_Function_Method($this, 'getDefaultAvatar'),
             'isProfileWithPasswordEdition' =>    new \Twig_Function_Method($this, 'isProfileWithPasswordEdition'),
             'useOnePasswordFieldForRegistration' => new \Twig_Function_Method($this, 'useOnePasswordFieldForRegistration')
         );
@@ -85,6 +86,16 @@ class TwigExtension extends \Twig_Extension {
     public function isAvatarEnabled()
     {
         return $this->container->getParameter('fulgurio_user.avatar.enabled');
+    }
+
+    /**
+     * Check in config if avatar functionality is enabled
+     *
+     * @return boolean
+     */
+    public function getDefaultAvatar()
+    {
+        return $this->container->getParameter('fulgurio_user.avatar.default_avatar');
     }
 
     /**
