@@ -4,31 +4,8 @@
 
 {% block title %}{% trans %}form.signin.sign.in{% endtrans %}{% endblock %}
 
-{% block styles %}
-.container .panel-heading a {
-	float: right;
-	font-size: 85%;
-	position: relative;
-	top: -10px;
-}
-.container .panel-body {
-	padding-top: 30px;
-}
-.container .inputmarge {
-	margin-bottom: 25px;
-}
-.container .form-group.othersignin {
-	margin-top: 10px;
-}
-.container .form-group.signup div.control div {
-	border-top: 1px solid #888;
-	padding-top: 15px;
-	font-size: 85%;
-}
-{% endblock %}
-
 {% block content %}
-				<div class="panel panel-info">
+				<div class="panel panel-info panel-login">
 					<div class="panel-heading">
 						<div class="panel-title">{% trans %}form.signin.sign.in{% endtrans %}</div>
 						<div>
@@ -84,4 +61,3 @@
 					</div>
 				</div>
 {% endblock %}
-

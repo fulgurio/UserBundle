@@ -1,0 +1,24 @@
+{
+  "name": "UserBundle",
+  "version": "0.0.0",
+  "description": "Fulgurio User bundle ========================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fulgurio/UserBundle.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/fulgurio/UserBundle/issues"
+  },
+  "homepage": "https://github.com/fulgurio/UserBundle",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-less": "~0.11.3",
+    "grunt-contrib-watch": "~0.6.1"
+  }
+}

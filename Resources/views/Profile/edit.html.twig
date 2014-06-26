@@ -82,43 +82,43 @@
 		</div>
 {% endblock %}
 
-{% block bodyBottom %}
-    {% if isAvatarEnabled() %}
-        <script>
-            (function() {
-                var $avatarPicture = $("#avatarPicture");
-                var $removeAvatarPict = $("#removeAvatarPict");
-                var $avatarFile = $("#avatarFile")
-                $removeAvatarPict.click(function() {
-                    $("#avatar").val("");
-                    $avatarPicture.removeAttr("width")
-                            .removeAttr("height")
-                            .attr("src", "{{ asset(getDefaultAvatar()) }}");
-                    $avatarFile.val("");
-                });
-                $avatarFile.change(function(e) {
-                    var file = e.target.files[0];
-                    if ((typeof file.type !== "undefined" ? file.type.match(/^image\/(gif|png|jpeg)$/) : file.name.match(/\.(gif|png|jpe?g)$/i))
-                            && typeof FileReader !== "undefined") {
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                        var image = new Image();
-                            image.src = e.target.result;
-                            image.onload = function() {
-                                if (this.width > this.height) { // Landscape
-                                    $avatarPicture.attr("width", "100px");
-                                }
-                                else { // Portrait
-                                    $avatarPicture.attr("height", "100px");
-                                }
-                                $avatarPicture.attr("src", this.src);
-                            };
-                        };
-                        reader.readAsDataURL(file);
-                        $removeAvatarPict.show();
-                    }
-                });
-            })();
-        </script>
-    {% endif %}
+{% block bottomContent %}
+{% if isAvatarEnabled() %}
+		<script>
+			(function() {
+				var $avatarPicture = $("#avatarPicture");
+				var $removeAvatarPict = $("#removeAvatarPict");
+				var $avatarFile = $("#avatarFile");
+				$removeAvatarPict.click(function() {
+					$("#avatar").val("");
+					$avatarPicture.removeAttr("width")
+							.removeAttr("height")
+							.attr("src", "{{ asset(getDefaultAvatar()) }}");
+					$avatarFile.val("");
+				});
+				$avatarFile.change(function(e) {
+					var file = e.target.files[0];
+					if ((typeof file.type !== "undefined" ? file.type.match(/^image\/(gif|png|jpeg)$/) : file.name.match(/\.(gif|png|jpe?g)$/i))
+							&& typeof FileReader !== "undefined") {
+						var reader = new FileReader();
+						reader.onload = function (e) {
+						var image = new Image();
+							image.src = e.target.result;
+							image.onload = function() {
+								if (this.width > this.height) { // Landscape
+									$avatarPicture.attr("width", "100px");
+								}
+								else { // Portrait
+									$avatarPicture.attr("height", "100px");
+								}
+								$avatarPicture.attr("src", this.src);
+							};
+						};
+						reader.readAsDataURL(file);
+						$removeAvatarPict.show();
+					}
+				});
+			})();
+		</script>
+{% endif %}
 {% endblock %}
