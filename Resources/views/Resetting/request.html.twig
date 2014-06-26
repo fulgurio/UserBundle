@@ -1,27 +1,14 @@
 {# Form to reset password, which send an email #}
-
 {% extends "FulgurioUserBundle::layout_like_popup.html.twig" %}
 
-{% block styles %}
-.container .panel-heading a {
-	float:right;
-	font-size: 85%;
-	position: relative;
-	top:-10px;
-}
-.container .form-group.submit span {
-	margin-left: 8px;
-}
-{% endblock %}
-
 {% block content %}
-				<div class="panel panelForgotPassword panel-info">
+				<div class="panel panel-forgot-password panel-info">
 					<div class="panel-heading">
 						<div class="panel-title">{% trans %}form.lost.password.lost.password{% endtrans %}</div>
 						<div><a href="{{ path('fos_user_security_login') }}" data-target="#myModal">{% trans %}form.register.sign.in{% endtrans %}</a></div>
 					</div>
-					<div class="panel-body" >
-						<form action="{{ path('fos_user_resetting_send_email') }}" method="post" class="form-horizontal" role="form">
+					<div class="panel-body">
+						<form id="forgot-password-form" action="{{ path('fos_user_resetting_send_email') }}" method="post" class="form-horizontal" role="form">
 {% if invalid_username is defined %}
 							<div class="alert alert-danger">
 								<p>{% trans %}form.error{% endtrans %} :</p>
@@ -44,4 +31,21 @@
 						</form>
 					</div>
 				</div>
+{% if app.request.isXmlHttpRequest()  %}
+				<script>
+$('#forgot-password-form').submit(function(e) {
+	e.preventDefault();
+	$.ajax({
+		url: this.action,
+		type: 'post',
+		data: $(this).serialize(),
+		success: function(html) {
+			var $elt = $("#myModal .modal-content");
+			$elt.html(html);
+			updateModalContent($elt);
+		}
+	});
+});
+				</script>
+{% endif %}
 {% endblock %}

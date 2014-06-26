@@ -3,6 +3,9 @@
 {% block content %}
 		<div>
 			<h1>{% trans %}profile.profile{% endtrans %}</h1>
+{% for flashMessage in app.session.flashbag.get('notice') %}
+			<div class="bg-info">{{ flashMessage }}</div>
+{% endfor %}
 {% if isAvatarEnabled() %}
 			<div class="pull-left"><img src="{{ avatar(user) }}" alt="{{ user.username }}"/></div>
 {% endif %}

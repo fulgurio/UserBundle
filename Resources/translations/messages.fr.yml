@@ -42,6 +42,7 @@ change_password:
 
             Cordialement,
             L'équipe.
+    notice: Votre mot de passe a été changé avec succès !
 unsubscribe:
     unsubscribe: Se désinscrire
     confirmation_text: Etes vous sûr de vouloir vous désinscrire ?

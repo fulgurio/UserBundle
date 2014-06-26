@@ -52,3 +52,9 @@ services:
     fulgurio_user.social_connector_provider:
         class: Fulgurio\UserBundle\Security\FOSUBUserProvider
         arguments: [@fos_user.user_manager,{facebook: facebookId, google: googleId, linkedin: linkedinId}]
+
+    fulgurio_user.change_password_listener:
+        class: Fulgurio\UserBundle\EventListener\ChangePasswordListener
+        tags:
+            - { name: "kernel.event_subscriber" }
+        arguments: [@session,@translator]

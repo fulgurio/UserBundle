@@ -1,23 +1,14 @@
 {# Template displayed when password reset form has been send (juste after request.html.twig) #}
 {% extends "FulgurioUserBundle::layout_like_popup.html.twig" %}
 
-{% block styles %}
-.container .panel-heading a {
-	float:right;
-	font-size: 85%;
-	position: relative;
-	top:-10px;
-}
-{% endblock %}
-
 {% block content %}
-				<div class="panel panelForgotPassword panel-info">
+				<div class="panel panel-forgot-password panel-info">
 					<div class="panel-heading">
 						<div class="panel-title">{% trans %}form.lost.password.lost.password{% endtrans %}</div>
 						<div><a href="{{ path('fos_user_security_login') }}" data-target="#myModal">{% trans %}form.register.sign.in{% endtrans %}</a></div>
 					</div>
-					<div class="panel-body" >
-						<p>{{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}</p>
+					<div class="panel-body">
+						<p>{% trans with {'%email%': email} from 'FOSUserBundle' %}resetting.check_email{% endtrans %}</p>
 					</div>
 				</div>
 {% endblock content %}

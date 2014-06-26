@@ -44,6 +44,7 @@ class EmailChangePasswordListener implements EventSubscriberInterface
     {
         return array(
             FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'onChangePasswordCompleted',
+            FOSUserEvents::RESETTING_RESET_COMPLETED => 'onChangePasswordCompleted'
         );
     }
 
