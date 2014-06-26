@@ -17,6 +17,10 @@
 {% else %}
 			<div class="row">
 {% endif %}
+{#				<div class="col-lg-6">
+					<a class="btn pull-right" href="{{ path('fulgurio_user_usermanager_add') }}">{% trans from 'admin' %}add_user{% endtrans %}</a>
+				</div>
+#}
 			</div>
 {% if users is empty %}
 {%   if app.request.get('q') %}
@@ -47,13 +51,13 @@
 						<td>
 {%     if user.enabled %}
 {%       if not user.isPasswordRequestNonExpired(changePasswordTTL) %}
-							<a href="{{ path('fulgurio_user_usermanager_resetpassword', {userId: user.id}) }}" title="{% trans from 'admin' %}reset_password{% endtrans %}" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-refresh"></span></a>
+							<a href="{{ path('fulgurio_user_usermanager_resetpassword', {userId: user.id}) }}" title="{% trans from 'admin' %}reset_password{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-refresh"></span></a>
 {%       endif %}
-							<a href="{{ path('fulgurio_user_usermanager_ban', {userId: user.id}) }}" title="{% trans from 'admin' %}ban.ban{% endtrans %}" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>
+							<a href="{{ path('fulgurio_user_usermanager_ban', {userId: user.id}) }}" title="{% trans from 'admin' %}ban.ban{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>
 {%     else %}
-							<a href="{{ path('fulgurio_user_usermanager_unban', {userId: user.id}) }}" title="{% trans from 'admin' %}unban.unban{% endtrans %}" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-circle-arrow-down"></span></a>
+							<a href="{{ path('fulgurio_user_usermanager_unban', {userId: user.id}) }}" title="{% trans from 'admin' %}unban.unban{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-circle-arrow-down"></span></a>
 {%     endif %}
-							<a href="{{ path('fulgurio_user_usermanager_remove', {userId: user.id}) }}" title="{% trans from 'admin' %}delete{% endtrans %}" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove-circle"></span></a>
+							<a href="{{ path('fulgurio_user_usermanager_remove', {userId: user.id}) }}" title="{% trans from 'admin' %}delete{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-remove-circle"></span></a>
 						</td>
 					</tr>
 {%   endfor %}
@@ -66,6 +70,6 @@
 
 {% block bottomContent %}
 {% if users is not empty %}
-{% include 'FulgurioUserBundle:Admin:popup.html.twig' %}
+{% include 'FulgurioUserBundle::popup.html.twig' %}
 {% endif %}
 {%endblock %}

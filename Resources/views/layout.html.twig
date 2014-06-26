@@ -7,7 +7,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-		<title>Starter Template for Bootstrap</title>
+		<title>User Bundle</title>
 		<link href="{{ asset('bundles/fulguriotwitterbootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('bundles/fulguriouser/css/styles.min.css') }}" rel="stylesheet">
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -32,8 +32,8 @@
 				<ul class="nav navbar-nav">
 					<li{% if app.request.attributes.get('_route') == 'fulgurio_user_default_index' %} class="active"{% endif %}><a href="{{ path('fulgurio_user_default_index') }}">Home</a></li>
 {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-					<li{% if app.request.attributes.get('_route') == 'fos_user_registration_register' %} class="active"{% endif %}><a href="{{ path('fos_user_registration_register') }}">Register</a></li>
-					<li{% if app.request.attributes.get('_route') == 'fos_user_security_login' %} class="active"{% endif %}><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+					<li{% if app.request.attributes.get('_route') == 'fos_user_registration_register' %} class="active"{% endif %}><a href="{{ path('fos_user_registration_register') }}" data-target="#myModal">Register</a></li>
+					<li{% if app.request.attributes.get('_route') == 'fos_user_security_login' %} class="active"{% endif %}><a href="{{ path('fos_user_security_login') }}" data-target="#myModal">Login</a></li>
 {% endif %}
 				</ul>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -56,5 +56,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="{{ asset('bundles/fulguriotwitterbootstrap/js/bootstrap.min.js') }}"></script>
 {% block bottomContent %}{% endblock %}
+{% include 'FulgurioUserBundle::popup.html.twig' %}
 	</body>
 </html>

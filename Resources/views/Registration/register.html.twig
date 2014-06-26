@@ -7,7 +7,7 @@
 				<div class="panel panel-info panel-register">
 					<div class="panel-heading">
 						<div class="panel-title">{% trans %}form.register.sign.up{% endtrans %}</div>
-						<div><a href="{{ path('fos_user_security_login') }}">{% trans %}form.register.sign.in{% endtrans %}</a></div>
+						<div><a href="{{ path('fos_user_security_login') }}" data-target="#myModal">{% trans %}form.register.sign.in{% endtrans %}</a></div>
 					</div>
 					<div class="panel-body">
 						<form action="{{ path('fos_user_registration_register') }}" method="post" class="form-horizontal" role="form">

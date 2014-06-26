@@ -4,13 +4,29 @@
 	</div>
 </div>
 <script>
+var updateModalContent = function($elt) {
+	$elt.find("a[data-target=#myModal]").click(function(e) {
+		e.preventDefault();
+		var target = this.href;
+		$elt.load(target, function() {
+			updateModalContent($elt);
+		});
+	});
+};
+
 $(document).ready(function() {
 	$('.popupClose').on('click', function(e) {
-		e.preventDefault();
+		//e.preventDefault();
 		$('#myModal').modal('hide');
 	});
-	$('#myModal').on('hidden.bs.modal', function () {
-		$(this).removeData('bs.modal');
+	$("a[data-target=#myModal]").click(function(e) {
+		e.preventDefault();
+		var target = this.href;
+		// load the url and show modal on success
+		$("#myModal .modal-content").load(target, function() {
+			updateModalContent($(this));
+			$("#myModal").modal("show");
+		});
 	});
 });
 </script>

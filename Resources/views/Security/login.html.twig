@@ -1,7 +1,7 @@
 {# Form to reset password, from email link #}
-
+{% if app.request.isXmlHttpRequest() == false %}
 {% extends "FulgurioUserBundle::layout_like_popup.html.twig" %}
-
+{% endif %}
 {% block title %}{% trans %}form.signin.sign.in{% endtrans %}{% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
 					<div class="panel-heading">
 						<div class="panel-title">{% trans %}form.signin.sign.in{% endtrans %}</div>
 						<div>
-							<a href="{{ path('fos_user_resetting_request') }}">{% trans %}form.signin.forgot.password{% endtrans %}</a>
+							<a href="{{ path('fos_user_resetting_request') }}" data-target="#myModal">{% trans %}form.signin.forgot.password{% endtrans %}</a>
 						</div>
 					</div>
 					<div class="panel-body">
@@ -53,7 +53,7 @@
 							<div class="form-group signup">
 								<div class="col-md-12 control">
 									<div>
-										{% trans %}form.signin.have.no.account{% endtrans %} <a href="{{ path('fos_user_registration_register') }}">{% trans %}form.signin.sign.up.here{% endtrans %}</a>
+										{% trans %}form.signin.have.no.account{% endtrans %} <a href="{{ path('fos_user_registration_register') }}" data-target="#myModal">{% trans %}form.signin.sign.up.here{% endtrans %}</a>
 									</div>
 								</div>
 							</div>
