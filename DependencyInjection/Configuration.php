@@ -38,6 +38,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end();
         $this->addChangePasswordSection($rootNode);
+        $this->addContactSection($rootNode);
         $this->addUnsubscribeSection($rootNode);
         $this->addBanSection($rootNode);
         $this->addAvatarSection($rootNode);
@@ -62,6 +63,38 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->booleanNode('enabled')->defaultFalse()->end()
                                 ->scalarNode('template')->defaultValue('FulgurioUserBundle:ChangePassword:email.html.twig')->end()
+                                ->arrayNode('from_email')
+                                    ->canBeUnset()
+                                    ->children()
+                                        ->scalarNode('address')->isRequired()->cannotBeEmpty()->end()
+                                        ->scalarNode('sender_name')->isRequired()->cannotBeEmpty()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * Contact configuration
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $node
+     */
+    private function addContactSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('contact')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('email')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->defaultFalse()->end()
+                                ->scalarNode('template')->defaultValue('FulgurioUserBundle:Admin:contact_email.html.twig')->end()
                                 ->arrayNode('from_email')
                                     ->canBeUnset()
                                     ->children()

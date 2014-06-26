@@ -1,0 +1,24 @@
+{# Send message form #}
+{% extends 'FulgurioUserBundle:Admin:layout.html.twig' %}
+
+{% block content %}
+{% if errors|length %}
+		<div class="alert alert-danger">
+			<p>{% trans %}form.error{% endtrans %} :</p>
+			<ul>
+{% for error in errors %}<li>{{error}}</li>{% endfor %}
+			</ul>
+		</div>
+{% endif %}
+		<form role="form" method="post" action="{{ path('fulgurio_user_usermanager_sendcontactemail', {userId: user.id}) }}" style="padding: 1em">
+			<div class="form-group">
+				<label for="subject">{% trans from 'admin' %}contact_email.form.subject{% endtrans %}</label>
+				<input type="text" name="subject" class="form-control" id="subject" value="{{ app.request.get('subject') }}">
+			</div>
+			<div class="form-group">
+				<label for="message">{% trans from 'admin' %}contact_email.form.message{% endtrans %}</label>
+				<textarea name="message" cols="" rows="8" class="form-control" id="message">{{ app.request.get('message') }}</textarea>
+			</div>
+			<button type="submit" class="btn btn-primary">{% trans from 'admin' %}contact_email.form.send{% endtrans %}</button>
+		</form>
+{% endblock %}

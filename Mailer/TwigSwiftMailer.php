@@ -59,6 +59,7 @@ class TwigSwiftMailer extends BaseTwigSwiftMailer
      * Send an email when user unregisters or with administration panel
      *
      * @param \FOS\UserBundle\Model\UserInterface $user
+     * @param boolean $isUnbanned
      */
     public function sendAccountHasBeenBannedMessage(UserInterface $user, $isUnbanned = FALSE)
     {
@@ -71,4 +72,22 @@ class TwigSwiftMailer extends BaseTwigSwiftMailer
         $this->sendMessage($template, $context, $this->parameters['from_email']['ban'], $user->getEmail());
     }
 
+    /**
+     * Send an email to user
+     *
+     * @param \FOS\UserBundle\Model\UserInterface $user
+     * @param string $subject
+     * @param string $content
+     */
+    public function sendContactMessage(UserInterface $user, $subject, $content)
+    {
+        $context = array(
+            'subject' => $subject,
+            'content' => $content
+            );
+        $this->sendMessage($this->parameters['template']['contact'],
+                $context,
+                $this->parameters['from_email']['contact'],
+                $user->getEmail());
+    }
 }

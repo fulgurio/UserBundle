@@ -1,3 +1,4 @@
+{% if app.request.isXmlHttpRequest() == false %}
 <!DOCTYPE html>
 <html lang="{{app.request.locale}}">
 	<head>
@@ -40,10 +41,13 @@ body {
 		</div>
 	</div>
 	<div class="container">
+{% endif %}
 {% block content %}{% endblock %}
+{% if app.request.isXmlHttpRequest() == false %}
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="{{ asset('bundles/fulguriotwitterbootstrap/js/bootstrap.js') }}"></script>
 {% block bottomContent %}{% endblock %}
 	</body>
 </html>
+{% endif %}

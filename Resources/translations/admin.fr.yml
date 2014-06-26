@@ -43,6 +43,15 @@ unban:
 
             Cordialement,
             L'équipe.
+contact_email:
+    send_email:                 Envoyer un email
+    success_message:            Email envoyé avec succès
+    form:
+        subject:                Sujet
+        subject_required:       Sujet obligatoire
+        message:                Message
+        message_required:       Message obligatoire
+        send:                   Envoyer
 reset_password:                 Ré-initialiser le mot de passe
 reset_password_confirm_message: Etes-vous sûr de vouloir ré-initialiser le mot de passe de l'utilisateur "%TITLE%" ?
 reset_password_success_message: Un courriel de ré-initialisation de mot de passe a été envoyé à l'adresse "%EMAIL%" !

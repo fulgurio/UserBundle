@@ -43,6 +43,15 @@ unban:
 
             Regards,
             the Team.
+contact_email:
+    send_email:                 Send an email
+    success_message:            Email successfull sent !
+    form:
+        subject:                Subject
+        subject_required:       Subject is required
+        message:                Message
+        message_required:       Message is required
+        send:                   Send
 reset_password:                 Reset password
 reset_password_confirm_message: Are you sure to reset password for "%TITLE%" user ?
 reset_password_success_message: An email for resetting password has been set to "%EMAIL%" !

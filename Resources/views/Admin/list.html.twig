@@ -14,14 +14,8 @@
 						</span>
 					</div>
 				</div>
-{% else %}
-			<div class="row">
-{% endif %}
-{#				<div class="col-lg-6">
-					<a class="btn pull-right" href="{{ path('fulgurio_user_usermanager_add') }}">{% trans from 'admin' %}add_user{% endtrans %}</a>
-				</div>
-#}
 			</div>
+{% endif %}
 {% if users is empty %}
 {%   if app.request.get('q') %}
 			<div class="alert alert-success">{% trans with { '%QUERY%': app.request.get('q') } from 'admin' %}no_user_found{% endtrans %}</div>
@@ -49,12 +43,16 @@
 						<td>{{ user.username }}</td>
 						<td>{{ user.email }}</td>
 						<td>
+							<a href="{{ path('fulgurio_user_usermanager_sendcontactemail', {userId: user.id}) }}" title="{% trans from 'admin' %}message.send_email{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-envelope"></span></a>
 {%     if user.enabled %}
 {%       if not user.isPasswordRequestNonExpired(changePasswordTTL) %}
 							<a href="{{ path('fulgurio_user_usermanager_resetpassword', {userId: user.id}) }}" title="{% trans from 'admin' %}reset_password{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-refresh"></span></a>
+{%       else %}
+							<span class="glyphicon">&nbsp;</span>
 {%       endif %}
 							<a href="{{ path('fulgurio_user_usermanager_ban', {userId: user.id}) }}" title="{% trans from 'admin' %}ban.ban{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>
 {%     else %}
+							<span class="glyphicon">&nbsp;</span>
 							<a href="{{ path('fulgurio_user_usermanager_unban', {userId: user.id}) }}" title="{% trans from 'admin' %}unban.unban{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-circle-arrow-down"></span></a>
 {%     endif %}
 							<a href="{{ path('fulgurio_user_usermanager_remove', {userId: user.id}) }}" title="{% trans from 'admin' %}delete{% endtrans %}" data-target="#myModal"><span class="glyphicon glyphicon-remove-circle"></span></a>

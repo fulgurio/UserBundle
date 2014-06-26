@@ -14,14 +14,17 @@ services:
             -
                 template:
                     change_password: %fulgurio_user.change_password.email.template%
+                    contact:         %fulgurio_user.contact.email.template%
                     unsubscribe:     %fulgurio_user.unsubscribe.email.template%
                     ban:             %fulgurio_user.ban.email.template%
                     unban:           %fulgurio_user.unban.email.template%
                 from_email:
                     change_password: %fulgurio_user.change_password.email.from_email%
+                    contact:         %fulgurio_user.contact.email.from_email%
                     unsubscribe:     %fulgurio_user.unsubscribe.email.from_email%
                     ban:             %fulgurio_user.ban.email.from_email%
                 enabled:
+                    contact:         %fulgurio_user.contact.email.enabled%
                     unsubscribe:     %fulgurio_user.unsubscribe.email.enabled%
                     ban:             %fulgurio_user.ban.email.enabled%
 

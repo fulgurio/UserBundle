@@ -33,6 +33,7 @@ class FulgurioUserExtension extends Extension
         $loader->load('services.yml');
 
         $this->loadChangePassword($config['change_password'], $container, $loader, $config['from_email']);
+        $this->loadContact($config['contact'], $container, $loader, $config['from_email']);
         $this->loadUnsubscribe($config['unsubscribe'], $container, $loader, $config['from_email']);
         $this->loadBan($config, $container, $loader, $config['from_email']);
         $this->loadAvatar($config['avatar'], $container, $loader);
@@ -59,6 +60,21 @@ class FulgurioUserExtension extends Extension
         }
         $container->setParameter('fulgurio_user.change_password.email.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
         $container->setParameter('fulgurio_user.change_password.email.template', $config['email']['template']);
+    }
+
+    /**
+     * Contact configuration
+     *
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\Loader\YamlFileLoader $loader
+     * @param array $fromEmail
+     */
+    private function loadContact(array $config, ContainerBuilder $container, YamlFileLoader $loader, array $fromEmail)
+    {
+        $container->setParameter('fulgurio_user.contact.email.enabled', $config['email']['enabled']);
+        $container->setParameter('fulgurio_user.contact.email.from_email', array($fromEmail['address'] => $fromEmail['sender_name']));
+        $container->setParameter('fulgurio_user.contact.email.template', $config['email']['template']);
     }
 
     /**

@@ -8,6 +8,6 @@
 
 {% block body_html %}
 {% autoescape false %}
-{{ 'unban.email.message'|trans({'%USERNAME%': user.username}, 'admin') }}
+{{ 'unban.email.message'|trans({'%USERNAME%': user.username}, 'admin')|nl2br }}
 {% endautoescape %}
 {% endblock %}

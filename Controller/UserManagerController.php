@@ -47,7 +47,6 @@ class UserManagerController extends Controller
 
     /**
      * @Route("/admin/users/{userId}/remove")
-     * @Template("FulgurioUserBundle:Admin:.html.twig")
      */
     public function removeAction($userId)
     {
@@ -64,7 +63,6 @@ class UserManagerController extends Controller
         }
         else if ($request->get('confirm') === 'no')
         {
-            // @todo : if pagination; it s better to come back a the same page
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
         $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
@@ -75,8 +73,38 @@ class UserManagerController extends Controller
     }
 
     /**
+     * @Route("/admin/users/{userId}/send-contact-email")
+     * @Template("FulgurioUserBundle:Admin:send_contact_email.html.twig")
+     */
+    public function sendContactEmailAction($userId)
+    {
+        $request = $this->getRequest();
+        $user = $this->getSpecifiedUser($userId);
+        $data = array('user' => $user, 'errors' => array());
+        if ($request->getRealMethod() == 'POST')
+        {
+            $subject = trim($request->get('subject'));
+            $message = trim($request->get('message'));
+            if ($subject == '')
+            {
+                $data['errors'][] = $this->get('translator')->trans('contact_email.form.subject_required', array(), 'admin');
+            }
+            if ($message == '')
+            {
+                $data['errors'][] = $this->get('translator')->trans('contact_email.form.message_required', array(), 'admin');
+            }
+            if (empty($data['errors']))
+            {
+                $this->container->get('fulgurio_user.mailer')->sendContactMessage($user, $subject, $message);
+                $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('contact_email.success_message', array(), 'admin'));
+                return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
+            }
+        }
+        return $data;
+    }
+
+    /**
      * @Route("/admin/users/{userId}/ban")
-     * @Template("FulgurioUserBundle:Admin:confirm.html.twig")
      */
     public function banAction($userId)
     {
@@ -92,7 +120,6 @@ class UserManagerController extends Controller
         }
         else if ($request->get('confirm') === 'no')
         {
-            // @todo : if pagination; it s better to come back a the same page
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
         $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
@@ -133,7 +160,6 @@ class UserManagerController extends Controller
     /**
      * @see FOS\UserBundle\Controller\ResettingController.sendEmailAction
      * @Route("/admin/users/{userId}/reset-password")
-     * @Template("FulgurioUserBundle:Admin:confirm.html.twig")
      */
     public function resetPasswordAction($userId)
     {
