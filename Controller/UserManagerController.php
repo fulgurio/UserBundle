@@ -47,11 +47,13 @@ class UserManagerController extends Controller
 
     /**
      * @Route("/admin/users/{userId}/remove")
+     * @Template("FulgurioUserBundle:Admin:confirm.html.twig");
+     * @return array|RedirectResponse
      */
     public function removeAction($userId)
     {
         $user = $this->getSpecifiedUser($userId);
-        $request = $this->get('request');
+        $request = $this->getRequest();
         if ($request->get('confirm') === 'yes')
         {
             $em = $this->getDoctrine()->getManager();
@@ -65,16 +67,16 @@ class UserManagerController extends Controller
         {
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
-        $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
-        return $this->render($templateName, array(
-                'action' => $this->generateUrl('fulgurio_user_usermanager_remove', array('userId' => $userId)),
-                'confirmationMessage' => $this->get('translator')->trans('delete_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
-        ));
+        return array(
+            'action' => $this->generateUrl('fulgurio_user_usermanager_remove', array('userId' => $userId)),
+            'confirmationMessage' => $this->get('translator')->trans('delete_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
+        );
     }
 
     /**
      * @Route("/admin/users/{userId}/send-contact-email")
      * @Template("FulgurioUserBundle:Admin:send_contact_email.html.twig")
+     * @return array|RedirectResponse
      */
     public function sendContactEmailAction($userId)
     {
@@ -153,6 +155,8 @@ class UserManagerController extends Controller
     /**
      * @see FOS\UserBundle\Controller\ResettingController.sendEmailAction
      * @Route("/admin/users/{userId}/reset-password")
+     * @Template("FulgurioUserBundle:Admin:confirm.html.twig");
+     * @return array|RedirectResponse
      */
     public function resetPasswordAction($userId)
     {
@@ -188,11 +192,10 @@ class UserManagerController extends Controller
             // @todo : if pagination; it s better to come back a the same page
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
-        $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
-        return $this->render($templateName, array(
-                'action' => $this->generateUrl('fulgurio_user_usermanager_resetpassword', array('userId' => $userId)),
-                'confirmationMessage' => $this->get('translator')->trans('reset_password_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
-        ));
+        return array(
+            'action' => $this->generateUrl('fulgurio_user_usermanager_resetpassword', array('userId' => $userId)),
+            'confirmationMessage' => $this->get('translator')->trans('reset_password_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
+        );
     }
 
     /**
