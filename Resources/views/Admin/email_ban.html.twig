@@ -2,12 +2,26 @@
 
 {% block body_text %}
 {% autoescape false %}
-{{ 'ban.email.message'|trans({'%USERNAME%': user.username}, 'admin') }}
+{% set fullMessage %}{% if message %}
+
+{% trans from 'admin'%}ban.email.optional_message{% endtrans %}
+
+{{ message }}
+
+{% endif %}{% endset %}
+{{ 'ban.email.message'|trans({'%USERNAME%': user.username, '%OPTIONAL_MESSAGE%': fullMessage}, 'admin') }}
 {% endautoescape %}
 {% endblock %}
 
 {% block body_html %}
 {% autoescape false %}
-{{ 'ban.email.message'|trans({'%USERNAME%': user.username}, 'admin')|nl2br }}
+{% set fullMessage %}{% if message %}
+
+{% trans from 'admin'%}ban.email.optional_message{% endtrans %}
+
+{{ message }}
+
+{% endif %}{% endset %}
+{{ 'ban.email.message'|trans({'%USERNAME%': user.username, '%OPTIONAL_MESSAGE%': fullMessage}, 'admin')|nl2br }}
 {% endautoescape %}
 {% endblock %}

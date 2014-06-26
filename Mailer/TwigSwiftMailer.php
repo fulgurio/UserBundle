@@ -60,15 +60,18 @@ class TwigSwiftMailer extends BaseTwigSwiftMailer
      *
      * @param \FOS\UserBundle\Model\UserInterface $user
      * @param boolean $isUnbanned
+     * @param string message
      */
-    public function sendAccountHasBeenBannedMessage(UserInterface $user, $isUnbanned = FALSE)
+    public function sendAccountHasBeenBannedMessage(UserInterface $user, $isUnbanned, $message)
     {
         if ($this->parameters['enabled']['ban'] === FALSE)
         {
             return;
         }
         $template = $this->parameters['template'][$isUnbanned ? 'unban' : 'ban'];
-        $context = array('user' => $user);
+        $context = array(
+            'user' => $user,
+            'message' => $message);
         $this->sendMessage($template, $context, $this->parameters['from_email']['ban'], $user->getEmail());
     }
 

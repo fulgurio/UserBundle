@@ -105,56 +105,49 @@ class UserManagerController extends Controller
 
     /**
      * @Route("/admin/users/{userId}/ban")
+     * @Template("FulgurioUserBundle:Admin:ban.html.twig")
      */
     public function banAction($userId)
     {
-        $user = $this->getSpecifiedUser($userId);
-        $request = $this->get('request');
-        if ($request->get('confirm') === 'yes')
-        {
-            $user->setEnabled(FALSE);
-            $this->container->get('fos_user.user_manager')->updateUser($user);
-            $this->container->get('fulgurio_user.mailer')->sendAccountHasBeenBannedMessage($user);
-            $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('ban.ban_success_message', array(), 'admin'));
-            return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
-        }
-        else if ($request->get('confirm') === 'no')
-        {
-            return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
-        }
-        $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
-        return $this->render($templateName, array(
-                'action' => $this->generateUrl('fulgurio_user_usermanager_ban', array('userId' => $userId)),
-                'confirmationMessage' => $this->get('translator')->trans('ban.ban_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
-        ));
+        return $this->banOrUnban($userId, FALSE);
     }
 
     /**
      * @Route("/admin/users/{userId}/unban")
-     * @Template("FulgurioUserBundle:Admin:confirm.html.twig")
+     * @Template("FulgurioUserBundle:Admin:ban.html.twig")
      */
     public function unbanAction($userId)
     {
+        return $this->banOrUnban($userId, TRUE);
+    }
+
+    /**
+     * Do ban or unban action
+     *
+     * @param number $userId
+     * @param boolean $doUnban
+     * @return array|RedirectResponse
+     */
+    private function banOrUnban($userId, $doUnban)
+    {
         $user = $this->getSpecifiedUser($userId);
-        $request = $this->get('request');
+        $request = $this->getRequest();
         if ($request->get('confirm') === 'yes')
         {
-            $user->setEnabled(TRUE);
+            $user->setEnabled($doUnban);
             $this->container->get('fos_user.user_manager')->updateUser($user);
-            $this->container->get('fulgurio_user.mailer')->sendAccountHasBeenBannedMessage($user, TRUE);
-            $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('unban.unban_success_message', array(), 'admin'));
+            $this->container->get('fulgurio_user.mailer')->sendAccountHasBeenBannedMessage($user, $doUnban, trim($request->get('message')));
+            $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans($doUnban ? 'unban.unban_success_message' : 'ban.ban_success_message', array(), 'admin'));
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
         else if ($request->get('confirm') === 'no')
         {
-            // @todo : if pagination; it s better to come back a the same page
             return $this->redirect($this->generateUrl('fulgurio_user_usermanager_list'));
         }
-        $templateName = $request->isXmlHttpRequest() ? 'FulgurioUserBundle:Admin:confirmAjax.html.twig' : 'FulgurioUserBundle:Admin:confirm.html.twig';
-        return $this->render($templateName, array(
-                'action' => $this->generateUrl('fulgurio_user_usermanager_unban', array('userId' => $userId)),
-                'confirmationMessage' => $this->get('translator')->trans('unban.unban_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin'),
-        ));
+        return array(
+            'action' => $this->generateUrl($doUnban ? 'fulgurio_user_usermanager_unban' : 'fulgurio_user_usermanager_ban', array('userId' => $userId)),
+            'confirmationMessage' => $this->get('translator')->trans($doUnban ? 'unban.unban_confirm_message' : 'ban.ban_confirm_message', array('%TITLE%' => $user->getUsername()), 'admin')
+                );
     }
 
     /**

@@ -21,15 +21,18 @@ ban:
     ban:                        Ban
     ban_confirm_message:        Are you sure to ban "%TITLE%" user ?
     ban_success_message:        User has been banned !
+    form:
+        leave_a_message:        Laisser un message (optionel)
     email:
         subject: Your account has been disabled
         message: |
             Hello %USERNAME% !
 
             We have disabled your account.
-
+            %OPTIONAL_MESSAGE%
             Regards,
             the Team.
+        optional_message:       "More informations :"
 unban:
     unban:                      Unban
     unban_confirm_message:      Are you sure to unban "%TITLE%" user ?
@@ -40,9 +43,10 @@ unban:
             Hello %USERNAME% !
 
             We have enabled your account.
-
+            %OPTIONAL_MESSAGE%
             Regards,
             the Team.
+        optional_message:       "More informations :"
 contact_email:
     send_email:                 Send an email
     success_message:            Email successfull sent !

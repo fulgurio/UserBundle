@@ -21,15 +21,18 @@ ban:
     ban:                        Bannir
     ban_confirm_message:        Etes-vous sûr de vouloir bannir l'utilisateur "%TITLE%" ?
     ban_success_message:        Utilisateur banni !
+    form:
+        leave_a_message:        Laisser un message (optionel)
     email:
         subject: Votre compte a été désactivé
         message: |
             Bonjour %USERNAME% !
 
             Nous venons de désactiver votre compte.
-
+            %OPTIONAL_MESSAGE%
             Cordialement,
             L'équipe.
+        optional_message:       "Informations supplémentaires :"
 unban:
     unban:                      Dé-bannir
     unban_confirm_message:      Etes-vous sûr de vouloir dé-bannir l'utilisateur "%TITLE%" ?
@@ -40,9 +43,10 @@ unban:
             Bonjour %USERNAME% !
 
             Nous venons de ré-activer votre compte.
-
+            %OPTIONAL_MESSAGE%
             Cordialement,
             L'équipe.
+        optional_message:       "Informations supplémentaires :"
 contact_email:
     send_email:                 Envoyer un email
     success_message:            Email envoyé avec succès
