@@ -14,9 +14,11 @@ var updateModalContent = function($elt) {
 	});
 };
 $(document).ready(function() {
-	$('.popupClose').on('click', function(e) {
-		//e.preventDefault();
-		$('#myModal').modal('hide');
+	$(document).on("click", ".popupClose", function(e) {
+		// We detect if popup is opened
+		if ($("body").hasClass("modal-open")) {
+			e.preventDefault();
+		}
 	});
 	$("a[data-target=#myModal]").click(function(e) {
 		e.preventDefault();

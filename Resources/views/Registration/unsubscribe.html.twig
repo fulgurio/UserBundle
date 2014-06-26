@@ -30,7 +30,7 @@
 						<form action="{{ path('fulgurio_user_default_unsubscribe') }}" method="post" class="form-horizontal" role="form">
 							<p>{% trans %}unsubscribe.confirmation_text{% endtrans %}</p>
 							<button type="submit" name="confirm" value="yes" class="btn btn-primary">{% trans %}form.confirmation.yes{% endtrans %}</button>
-							&nbsp;<a href="{{ path('fos_user_profile_show') }}" class="btn btn-default">{% trans %}form.confirmation.no{% endtrans %}</a>
+							&nbsp;<a href="{{ path('fos_user_profile_show') }}" class="btn btn-default popupClose">{% trans %}form.confirmation.no{% endtrans %}</a>
 						</form>
 					</div>
 				</div>

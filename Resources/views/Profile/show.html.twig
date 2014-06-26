@@ -15,6 +15,6 @@
 {% if not isProfileWithPasswordEdition() %}
 			<div><a href="{{ path('fos_user_change_password') }}">{% trans %}change_password.change_password{% endtrans %}</a></div>
 {% endif %}
-			<div><a href="{{ path('fulgurio_user_default_unsubscribe') }}">{% trans %}profile.unsubscribe{% endtrans %}</a></div>
+			<div><a href="{{ path('fulgurio_user_default_unsubscribe') }}" data-target="#myModal">{% trans %}profile.unsubscribe{% endtrans %}</a></div>
 		</div>
 {% endblock content %}
